@@ -10,3 +10,19 @@
 :root { --ajv-live-css: "ok"; }
 
 // ---- Cambios visuales nuevos van debajo de esta línea ----
+
+// Botón de ayuda flotante (abajo a la derecha): navy a juego con la topbar.
+#page-footer .btn-footer-popover,
+.btn-footer-popover {
+  background-color: $ajv-navy-3 !important;
+  border: 1px solid rgba(255, 255, 255, .08);
+  color: #fff;
+  box-shadow: $ajv-shadow-lg;
+  transition: transform .15s ease, background-color .15s ease;
+  .icon { color: #fff; }
+  &:hover,
+  &:focus {
+    background-color: $ajv-teal !important;
+    transform: translateY(-2px);
+  }
+}
