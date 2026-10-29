@@ -578,6 +578,9 @@ body.path-course-view #page-header .page-header-headings h1 {
   img.icon {
     width: 1.125rem !important;
     height: 1.125rem !important;
+  }
+  .activityicon:not(.nofilter),
+  img.icon:not(.nofilter) {
     filter: brightness(0) opacity(.68) !important;
   }
 }
@@ -585,7 +588,6 @@ body.path-course-view #page-header .page-header-headings h1 {
 .activityiconcontainer.communication { background-color: $ok-bg !important; }
 .activityiconcontainer.assessment    { background-color: $info-bg !important; }
 .activityiconcontainer.collaboration { background-color: $warn-bg !important; }
-.activityiconcontainer.interactivecontent { background-color: $purple-bg !important; }
 .activityiconcontainer.interface,
 .activityiconcontainer.administration { background-color: $gray-bg !important; }
 
@@ -1489,3 +1491,26 @@ body#page-login-index {
   64% { transform: translate3d(-2.7%, -2.2%, 0) scaleX(1.052) scaleY(1.098) rotate(.58deg); opacity: .18; }
   84% { transform: translate3d(.8%, .7%, 0) scaleX(1.102) scaleY(1.06) rotate(-.22deg); opacity: .21; }
 }
+
+
+// ============================================================
+// 19. AJUSTES VERIFICADOS CONTRA EL CÓDIGO DE MOODLE 4.2
+// ============================================================
+// course.scss: "#frontpage-available-course-list .coursebox { margin-bottom: .5rem }"
+// gana por especificidad y desalinea la grilla.
+#frontpage-available-course-list .coursebox,
+#frontpage-course-list .coursebox,
+.course-search-result .coursebox {
+  margin: 0 !important;
+}
+// course.scss: en categorías agrega un ícono de fondo con padding al nombre del curso.
+.subcategories .coursebox > .info > .coursename a,
+#frontpage-category-names .coursebox > .info > .coursename a,
+#frontpage-category-combo .coursebox > .info > .coursename a {
+  background-image: none !important;
+  padding-left: 0 !important;
+}
+// course.scss: ".coursebox > .info > .coursename { margin: 5px }"
+.coursebox > .info > .coursename { margin: 0 0 .375rem !important; }
+// loginform.mustache: sin logo cargado, Moodle muestra un h1 visible que duplicaría el título.
+body#page-login-index .loginform > h1.login-heading:not(.sr-only) { display: none; }
