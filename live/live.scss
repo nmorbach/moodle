@@ -42,3 +42,122 @@
     background: url("brand/logo-white.png") no-repeat left center / contain;
   }
 }
+
+// ============================================================
+// PÁGINA DEL CURSO
+// ============================================================
+$ajv-wine: #a0566b;
+$ajv-teal-text-2: #3d6f69;
+
+// Encabezado del curso como mini-hero navy
+body.path-course-view #page-header {
+  margin: 1.5rem 0 0;
+  padding: 2rem 2.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(160deg, $ajv-navy-1 0%, $ajv-navy-2 45%, $ajv-navy-3 100%) !important;
+  box-shadow: $ajv-shadow-lg;
+  color: #fff;
+
+  .page-header-headings::before {
+    content: "Curso";
+    display: block;
+    margin-bottom: .5rem;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: $ajv-teal-border;
+  }
+  h1, .h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  a { color: $ajv-teal-border; }
+}
+body.path-course-view .secondary-navigation { margin-top: .5rem; }
+
+// Secciones: títulos más proporcionados
+.course-content .sectionname,
+.course-content .course-section-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $ajv-text;
+}
+.course-content .section .collapse-sections,
+.course-content #collapsesections { font-size: .875rem; font-weight: 500; }
+
+// Actividades: filas limpias en lugar de caja dentro de caja
+.course-content .activity-item:not(.activityinline) {
+  border: 0;
+  border-radius: .625rem;
+  padding: .875rem 1rem;
+  transition: background-color .15s ease;
+  &:hover { background: $ajv-subtle; }
+}
+.course-content li.activity + li.activity .activity-item:not(.activityinline) {
+  border-top: 1px solid $ajv-border;
+  border-radius: 0;
+  &:hover { border-radius: .625rem; border-top-color: transparent; }
+}
+.course-content .activityname a,
+.course-content .activityname .aalink {
+  font-weight: 500;
+  color: $ajv-text;
+  &:hover { color: $ajv-teal; text-decoration: none; }
+}
+
+// Íconos de actividad: más chicos y con la paleta
+.activity-item .activityiconcontainer,
+.activityiconcontainer.courseicon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: .625rem;
+}
+.activity-item .activityiconcontainer.content       { background-color: $ajv-navy-1; }
+.activity-item .activityiconcontainer.communication { background-color: $ajv-teal; }
+.activity-item .activityiconcontainer.assessment    { background-color: $ajv-wine; }
+.activity-item .activityiconcontainer.collaboration { background-color: $ajv-teal-text-2; }
+.activity-item .activityiconcontainer.interface,
+.activity-item .activityiconcontainer.administration { background-color: #475467; }
+
+// Botón "Marcar como hecha" tipo pastilla
+.activity-information [data-action="toggle-manual-completion"],
+.completion-info .btn {
+  border-radius: 999px;
+  padding: .3rem .875rem;
+  font-size: .8125rem;
+  font-weight: 500;
+  &.btn-outline-secondary {
+    color: $ajv-muted;
+    border-color: $ajv-border-strong;
+    background: $ajv-surface;
+    &:hover { color: $ajv-teal; border-color: $ajv-teal; background: $ajv-teal-bg; }
+  }
+  &.btn-success {
+    color: #fff;
+    background: $ajv-teal;
+    border-color: $ajv-teal;
+  }
+}
+
+// Índice lateral del curso
+.drawer.drawer-left {
+  background: $ajv-surface;
+  border-right: 1px solid $ajv-border;
+}
+.courseindex {
+  .courseindex-section-title,
+  .courseindex-section-title a {
+    font-weight: 600;
+    color: $ajv-text;
+  }
+  .courseindex-link { color: $ajv-muted; }
+  .courseindex-link:hover { color: $ajv-text; text-decoration: none; }
+  .courseindex-item { border-radius: .5rem; }
+  .courseindex-item.pageitem {
+    background: $ajv-teal-bg;
+    a, .courseindex-link { color: $ajv-teal-text; font-weight: 500; }
+  }
+}
