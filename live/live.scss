@@ -1514,3 +1514,137 @@ body#page-login-index {
 .coursebox > .info > .coursename { margin: 0 0 .375rem !important; }
 // loginform.mustache: sin logo cargado, Moodle muestra un h1 visible que duplicaría el título.
 body#page-login-index .loginform > h1.login-heading:not(.sr-only) { display: none; }
+
+// ============================================================
+// 20. ÁREA PERSONAL — CALENDARIO (verificado: calendar.scss / modules.scss 4.2)
+// ============================================================
+// modules.scss: ".maincalendar .calendarmonth td, th { border: 1px dotted }" → fuera
+.maincalendar .calendarmonth td,
+.maincalendar .calendarmonth th {
+  border: 0 !important;
+}
+.maincalendar .calendartable.calendarmonth {
+  width: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid $border;
+  border-radius: $r-panel;
+  background: $surface;
+
+  th {
+    padding: .6rem .75rem;
+    background: $subtle;
+    border-bottom: 1px solid $border !important;
+    color: $muted;
+    font-size: .6875rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  td {
+    padding: .5rem;
+    border-top: 1px solid $border !important;
+    border-left: 1px solid $border !important;
+    transition: background-color .12s ease;
+  }
+  tr:first-child td { border-top: 0 !important; }
+  td:first-child { border-left: 0 !important; }
+  td.dayblank { background: $subtle; }
+  td.weekend:not(.today) { background: #fbfcfd; }
+  td.clickable:hover { background: $row-hover !important; }
+
+  .day-number-circle {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+  }
+  .day-number {
+    color: $text-2;
+    font-size: .8125rem;
+    font-weight: 500;
+  }
+  td.today .day-number-circle {
+    background: $brand !important;
+    color: #fff !important;
+    .day-number { color: #fff; font-weight: 700; }
+  }
+  .eventname { font-size: .75rem; color: $text-2; }
+  .calendar-circle { width: 8px !important; height: 8px !important; border: 0 !important; }
+}
+// calendar.scss: "#region-main .maincalendar .calendarwrapper td > div { height: 11.5em }"
+#region-main .maincalendar .calendarwrapper td > div { height: 6.5rem !important; }
+
+// Navegación de meses como botones Astra
+.maincalendar .calendar-controls {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1rem;
+
+  .previous, .next, .current {
+    float: none !important;
+    width: auto !important;
+    border: 0;
+  }
+  .current {
+    margin: 0;
+    color: $text;
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: -.01em;
+  }
+  .arrow_link {
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    padding: .4rem .75rem;
+    border: 1px solid $border-strong !important;
+    border-radius: $r-control;
+    background: $surface;
+    color: $text-2 !important;
+    font-size: .8125rem;
+    font-weight: 600;
+    text-decoration: none;
+    &:hover { background: $subtle; color: $text !important; }
+  }
+  .arrow { color: $muted; font-size: .625rem; }
+}
+.maincalendar .controls,
+.maincalendar .calendarmonth { width: 100% !important; }
+
+// ============================================================
+// 21. MIS CURSOS (verificado: core.scss 4.2 ".drawers .block_myoverview")
+// Moodle lo diseña sin card: filtros y tarjetas directo sobre el fondo.
+// ============================================================
+#page.drawers .block_myoverview {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  > .card-body { padding: 0 !important; }
+  .card-title {
+    display: block !important;
+    margin-bottom: 1rem;
+    font-size: 1.0625rem !important;
+    font-weight: 650 !important;
+  }
+  .content { margin-top: 0 !important; }
+}
+// Toolbar de filtros (v2-toolbar): sin separador, con aire
+.block_myoverview [data-region="filter"] {
+  margin-bottom: 1.25rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+.block_myoverview hr { display: none; }
+// Grilla de tarjetas
+.block_myoverview .card-deck.dashboard-card-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  .dashboard-card { width: auto !important; margin: 0 !important; }
+}
