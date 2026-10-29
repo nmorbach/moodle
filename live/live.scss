@@ -1,163 +1,1147 @@
 // ============================================================
 // CSS EN VIVO — Portal de Capacitación AJ Vierci
-// Se carga en el Moodle DESPUÉS de los estilos del tema.
-// Lo que se publique acá aparece en el sitio en ~10 min, sin reinstalar.
-// Compilar: scripts/build.sh  →  docs/live.css
+// Rediseño completo con el sistema visual de Astra v2.
+// Se carga DESPUÉS de los estilos del tema y los pisa.
+// Compilar: scripts/build.sh → docs/live.css
 // ============================================================
 @import "tokens";
 
-// Marca de verificación: si esta variable existe en el sitio, el CSS en vivo está cargando.
-:root { --ajv-live-css: "ok"; }
+:root { --ajv-live-css: "astra-v2"; }
 
-// ---- Cambios visuales nuevos van debajo de esta línea ----
+// Íconos SVG reutilizables (data URI, trazo azul / claro)
+$ico-cap-light: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238fb8ec' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10 12 5 2 10l10 5 10-5Z'/%3E%3Cpath d='M6 12v5c3 2 9 2 12 0v-5'/%3E%3C/svg%3E";
+$ico-book-brand: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232f5fb3' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z'/%3E%3Cpath d='M8 7h7'/%3E%3C/svg%3E";
+$ico-noise: "data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
 
-// Botón de ayuda flotante (abajo a la derecha): navy a juego con la topbar.
-#page-footer .btn-footer-popover,
-.btn-footer-popover {
-  background-color: $ajv-navy-3 !important;
-  border: 1px solid rgba(255, 255, 255, .08);
-  color: #fff;
-  box-shadow: $ajv-shadow-lg;
-  transition: transform .15s ease, background-color .15s ease;
-  .icon { color: #fff; }
-  &:hover,
-  &:focus {
-    background-color: $ajv-teal !important;
-    transform: translateY(-2px);
-  }
-}
-
-// Logo blanco del grupo en la topbar (reemplaza el cuadrito "AJ" y el texto).
-// La URL es relativa a live.css → https://nmorbach.github.io/moodle/brand/logo-white.png
-.navbar.fixed-top .navbar-brand {
-  font-size: 0;
-  color: transparent;
-  &:not(:has(img))::before {
+// Franja blanca a todo el ancho (header de página estilo Astra)
+// Fondo con ::before (no recorta dropdowns, a diferencia de clip-path)
+@mixin full-bleed-surface {
+  position: relative;
+  isolation: isolate;
+  background: transparent !important;
+  box-shadow: none !important;
+  &::before {
     content: "";
-    width: 76px;
-    height: 36px;
-    margin-right: 0;
-    border-radius: 0;
-    box-shadow: none;
-    background: url("brand/logo-white.png") no-repeat left center / contain;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100vmax;
+    right: -100vmax;
+    z-index: -1;
+    background: $surface;
+    pointer-events: none;
   }
+}
+@mixin full-bleed-line {
+  content: "";
+  position: absolute;
+  left: -100vmax;
+  right: -100vmax;
+  bottom: 0;
+  top: auto;
+  width: auto;
+  height: 1px;
+  border-radius: 0;
+  background: $border;
+  pointer-events: none;
 }
 
 // ============================================================
-// PÁGINA DEL CURSO
+// 1. BASE
 // ============================================================
-$ajv-wine: #a0566b;
-$ajv-teal-text-2: #3d6f69;
+body {
+  background: $canvas;
+  color: $text-2;
+  font-size: .9375rem;
+}
+#page.drawers,
+#page { overflow-x: clip; }
 
-// Encabezado del curso como mini-hero navy
-body.path-course-view #page-header {
-  margin: 1.5rem 0 0;
-  padding: 2rem 2.25rem;
-  border-radius: 1rem;
-  background: linear-gradient(160deg, $ajv-navy-1 0%, $ajv-navy-2 45%, $ajv-navy-3 100%) !important;
-  box-shadow: $ajv-shadow-lg;
-  color: #fff;
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  color: $text;
+  font-weight: 650;
+  letter-spacing: -.015em;
+}
+a { color: $brand; }
+a:hover, a:focus { color: $brand-ink; }
+.text-muted, .dimmed_text { color: $muted !important; }
+.text-primary { color: $brand !important; }
+.bg-primary { background-color: $brand !important; }
+.border-primary { border-color: $brand !important; }
+.text-success { color: $ok-ink !important; }
+hr { border-top-color: $border; }
+::selection { background: $brand-200; color: $text; }
 
-  .page-header-headings::before {
-    content: "Curso";
-    display: block;
-    margin-bottom: .5rem;
+// ============================================================
+// 2. TOPBAR (client-topnav)
+// ============================================================
+nav.navbar.fixed-top,
+nav.navbar.fixed-top.bg-white {
+  background:
+    radial-gradient(28rem 9rem at 6% -40%, rgba(79, 122, 196, .3), transparent 70%),
+    $navy !important;
+  border-bottom: 1px solid rgba(255, 255, 255, .08) !important;
+  box-shadow: none !important;
+}
+
+.navbar.fixed-top {
+  // Logo blanco del grupo
+  .navbar-brand {
+    font-size: 0;
+    color: transparent;
+    margin-right: 1.25rem !important;
+    &:not(:has(img))::before {
+      content: "";
+      display: inline-block;
+      width: 76px;
+      height: 36px;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+      background: url("brand/logo-white.png") no-repeat left center / contain;
+    }
+  }
+
+  // Navegación principal: pills
+  .primary-navigation .navigation,
+  .primary-navigation .navigation .more-nav {
+    align-items: center;
+    height: 100%;
+    gap: .125rem;
+  }
+  .primary-navigation .navigation .nav-link {
+    display: flex;
+    align-items: center;
+    height: 2.25rem !important;
+    padding: 0 .75rem !important;
+    border: 0 !important;
+    border-radius: $r-control;
+    color: $bar-text !important;
+    background: transparent;
+    font-size: .8125rem;
+    font-weight: 500;
+    transition: background-color .15s ease, color .15s ease;
+    &:hover { color: #fff !important; background: rgba(255, 255, 255, .07); }
+    &.active,
+    &[aria-current="true"] {
+      color: #fff !important;
+      font-weight: 600;
+      background: rgba(255, 255, 255, .1);
+      border-bottom: 0 !important;
+    }
+  }
+  .moremenu .dropdown-toggle { color: $bar-text !important; }
+
+  // Íconos de la derecha
+  .icon,
+  .popover-region-toggle,
+  .btn-icon,
+  .usermenu .dropdown-toggle,
+  .usermenu .login a,
+  .editmode-switch-form label {
+    color: $bar-text-2 !important;
+  }
+  .popover-region-toggle:hover .icon,
+  .btn-icon:hover { color: #fff !important; }
+  .divider { border-color: rgba(255, 255, 255, .1) !important; }
+  .editmode-switch-form label { font-size: .8125rem; font-weight: 500; }
+
+  .userinitials,
+  .avatar.current {
+    color: #eef3fa !important;
+    background: rgba(143, 184, 236, .16) !important;
+    border: 1px solid rgba(143, 184, 236, .3) !important;
     font-size: .75rem;
     font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: $ajv-teal-border;
   }
-  h1, .h2 {
+
+  .custom-switch .custom-control-label::before {
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .22);
+  }
+  .custom-switch .custom-control-label::after { background-color: $bar-text; }
+  .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: $brand-500;
+    border-color: $brand-500;
+  }
+  .custom-switch .custom-control-input:checked ~ .custom-control-label::after { background-color: #fff; }
+
+  .count-container {
+    background: $brand-500;
+    border: 2px solid $navy;
+    font-weight: 600;
+  }
+
+  // Menús desplegables dentro de la barra: claros
+  .dropdown-menu,
+  .popover-region-container {
+    color: $text-2;
+    .icon { color: $muted !important; }
+  }
+}
+
+// ============================================================
+// 3. HEADERS DE PÁGINA (astra-page-header)
+// ============================================================
+#page.drawers .main-inner {
+  margin-top: 0;
+  padding-top: 0;
+  background: transparent;
+}
+
+#page-header {
+  @include full-bleed-surface;
+  margin: 0 0 1.5rem !important;
+  padding: 1.5rem 0 1.25rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: $text;
+  &::after { @include full-bleed-line; }
+
+  h1, .h2, .page-header-headings h1 {
     margin: 0;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
+    color: $text !important;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 650;
+    letter-spacing: -.015em;
   }
-  a { color: $ajv-teal-border; }
+  .page-header-headings::before { content: none !important; display: none !important; }
+  .breadcrumb {
+    margin-bottom: .5rem;
+    padding: 0;
+    background: transparent;
+    font-size: .75rem;
+  }
+  .breadcrumb-item, .breadcrumb-item a { color: $muted; }
+  .breadcrumb-item a:hover { color: $brand; }
 }
-body.path-course-view .secondary-navigation { margin-top: .5rem; }
-
-// Secciones: títulos más proporcionados
-.course-content .sectionname,
-.course-content .course-section-header h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: $ajv-text;
-}
-.course-content .section .collapse-sections,
-.course-content #collapsesections { font-size: .875rem; font-weight: 500; }
-
-// Actividades: filas limpias en lugar de caja dentro de caja
-.course-content .activity-item:not(.activityinline) {
-  border: 0;
-  border-radius: .625rem;
-  padding: .875rem 1rem;
-  transition: background-color .15s ease;
-  &:hover { background: $ajv-subtle; }
-}
-.course-content li.activity + li.activity .activity-item:not(.activityinline) {
-  border-top: 1px solid $ajv-border;
-  border-radius: 0;
-  &:hover { border-radius: .625rem; border-top-color: transparent; }
-}
-.course-content .activityname a,
-.course-content .activityname .aalink {
-  font-weight: 500;
-  color: $ajv-text;
-  &:hover { color: $ajv-teal; text-decoration: none; }
+// Si sigue la barra de tabs, la línea la pone la barra
+#page-header:has(+ .secondary-navigation) {
+  margin-bottom: 0 !important;
+  padding-bottom: .5rem !important;
+  &::after { display: none; }
 }
 
-// Íconos de actividad: más chicos y con la paleta
-.activity-item .activityiconcontainer,
-.activityiconcontainer.courseicon {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: .625rem;
+// Ícono de página (astra-page-icon) en el curso
+body.path-course-view #page-header .page-header-headings h1 {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  &::before {
+    content: "";
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: $r-panel;
+    background: $brand-soft url($ico-book-brand) no-repeat center / 1.1rem;
+  }
 }
-.activity-item .activityiconcontainer.content       { background-color: $ajv-navy-1; }
-.activity-item .activityiconcontainer.communication { background-color: $ajv-teal; }
-.activity-item .activityiconcontainer.assessment    { background-color: $ajv-wine; }
-.activity-item .activityiconcontainer.collaboration { background-color: $ajv-teal-text-2; }
-.activity-item .activityiconcontainer.interface,
-.activity-item .activityiconcontainer.administration { background-color: #475467; }
 
-// Botón "Marcar como hecha" tipo pastilla
-.activity-information [data-action="toggle-manual-completion"],
-.completion-info .btn {
-  border-radius: 999px;
-  padding: .3rem .875rem;
+
+// ============================================================
+// 4. TABS (v2-tabs)
+// ============================================================
+.secondary-navigation {
+  @include full-bleed-surface;
+  margin: 0 0 1.5rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  &::after { @include full-bleed-line; }
+
+  .navigation {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  .navigation .nav-tabs {
+    gap: 1.75rem;
+    border: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+.secondary-navigation .navigation .nav-tabs .nav-link,
+.nav-tabs .nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: auto !important;
+  min-height: 2.75rem;
+  margin: 0 0 -1px;
+  padding: .75rem 0 !important;
+  border: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: $muted !important;
   font-size: .8125rem;
   font-weight: 500;
-  &.btn-outline-secondary {
-    color: $ajv-muted;
-    border-color: $ajv-border-strong;
-    background: $ajv-surface;
-    &:hover { color: $ajv-teal; border-color: $ajv-teal; background: $ajv-teal-bg; }
+  &:hover { color: $text !important; }
+  &.active,
+  &[aria-current="true"] {
+    color: $brand !important;
+    font-weight: 600;
+    border-bottom-color: $brand !important;
   }
-  &.btn-success {
-    color: #fff;
-    background: $ajv-teal;
-    border-color: $ajv-teal;
+}
+.nav-tabs {
+  gap: 1.75rem;
+  border-bottom: 1px solid $border;
+}
+
+// Píldoras (nav-pills) estilo segment
+.nav-pills .nav-link {
+  border-radius: $r-control;
+  color: $text-3;
+  font-size: .8125rem;
+  font-weight: 600;
+  &.active { background: $brand-soft; color: $brand-ink; }
+}
+
+// ============================================================
+// 5. HOME — header de bienvenida (reemplaza el hero oscuro)
+// ============================================================
+.ajv-hero {
+  @include full-bleed-surface;
+  overflow: visible !important; // el tema le pone hidden y recortaría la franja
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 2rem;
+  margin: 0 0 2rem !important;
+  padding: 2.25rem 0 2rem !important;
+  border-radius: 0 !important;
+  color: $text !important;
+
+  &::after { @include full-bleed-line; }
+
+  &__eyebrow {
+    margin-bottom: .625rem;
+    color: $brand !important;
+    font-size: .6875rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+  }
+  &__title {
+    margin: 0 0 .5rem;
+    color: $text !important;
+    font-size: clamp(1.6rem, 2.4vw, 2rem);
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -.025em;
+  }
+  &__text {
+    max-width: 36rem;
+    margin: 0 0 1.5rem;
+    color: $muted !important;
+    font-size: .9375rem;
+    line-height: 1.55;
+  }
+  &__actions { gap: .625rem; }
+  &__cta,
+  &__ghost {
+    padding: .625rem 1.1rem !important;
+    font-size: .875rem;
+  }
+  &__ghost {
+    color: $text !important;
+    background: $surface !important;
+    border: 1px solid $border-strong !important;
+    &:hover, &:focus { background: $subtle !important; color: $text !important; }
+  }
+
+  // KPIs como v2-stat-group: celdas unidas por un borde de 1px
+  &__stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(9.5rem, 1fr));
+    gap: 1px !important;
+    overflow: hidden;
+    border: 1px solid $border;
+    border-radius: $r-panel;
+    background: $border;
+  }
+  &__stat {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    min-width: 0 !important;
+    padding: 1rem 1.25rem !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: $surface !important;
+  }
+  &__stat-value {
+    margin-top: .25rem;
+    color: $text !important;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  &__stat-label {
+    margin: 0 !important;
+    color: $muted !important;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 991.98px) {
+    grid-template-columns: 1fr;
+    align-items: start;
+    &__stats { width: 100%; }
+  }
+}
+.ajv-hero:has(+ .secondary-navigation) {
+  margin-bottom: 0 !important;
+  &::after { display: none; }
+}
+
+// Títulos de sección del home (v2-section-head)
+#frontpage-available-course-list h2,
+#frontpage-course-list h2,
+#frontpage-category-names h2,
+#frontpage-category-combo h2,
+.frontpage-course-list-all + h2,
+#region-main h2.sectionname {
+  margin: 0 0 .9rem;
+  color: $text;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  letter-spacing: -.01em;
+}
+
+// ============================================================
+// 6. CARDS DE CURSO (v2-search-card)
+// ============================================================
+.courses .coursebox,
+#page-site-index .courses .coursebox,
+.course_category_tree .courses .coursebox {
+  padding: 1.25rem !important;
+  border: 1px solid $border !important;
+  border-radius: $r-card !important;
+  background: $surface !important;
+  box-shadow: $shadow-card !important;
+  transform: none !important;
+  transition: border-color .15s ease, box-shadow .15s ease;
+
+  &:hover {
+    border-color: $border-strong !important;
+    box-shadow: 0 4px 12px rgba(16, 24, 40, .06) !important;
+    transform: none !important;
+  }
+
+  .coursename {
+    margin: 0 0 .375rem;
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -.01em;
+    a { color: $text !important; }
+    a:hover { color: $brand !important; }
+  }
+  .summary {
+    color: $muted !important;
+    font-size: .8125rem;
+    line-height: 1.5;
+  }
+  .teachers {
+    padding-top: .875rem;
+    border-top: 1px solid $border !important;
+    color: $muted;
+    font-size: .75rem;
+    li { color: $muted; }
+    a { color: $text-2; font-weight: 600; }
+  }
+  .courseimage { margin: -1.25rem -1.25rem 1.1rem !important; }
+  .courseimage img {
+    height: 112px !important;
+    border-radius: $r-card $r-card 0 0 !important;
   }
 }
 
-// Índice lateral del curso
-.drawer.drawer-left {
-  background: $ajv-surface;
-  border-right: 1px solid $ajv-border;
+// Portada automática: navy con brillo azul (como la topbar)
+.courses .coursebox:not(:has(.courseimage))::before {
+  height: 96px !important;
+  margin: -1.25rem -1.25rem 1.1rem !important;
+  filter: none !important;
+  background:
+    url($ico-cap-light) no-repeat 1.25rem center / 34px 34px,
+    radial-gradient(18rem 8rem at 90% -20%, rgba(79, 122, 196, .45), transparent 70%),
+    $navy !important;
 }
+.courses .coursebox:nth-child(3n+2):not(:has(.courseimage))::before {
+  background:
+    url($ico-cap-light) no-repeat 1.25rem center / 34px 34px,
+    radial-gradient(18rem 8rem at 15% 120%, rgba(79, 122, 196, .4), transparent 70%),
+    $navy-ink !important;
+}
+.courses .coursebox:nth-child(3n+3):not(:has(.courseimage))::before {
+  background:
+    url($ico-cap-light) no-repeat 1.25rem center / 34px 34px,
+    radial-gradient(18rem 8rem at 60% -30%, rgba(143, 184, 236, .3), transparent 70%),
+    #13284a !important;
+}
+
+// Curso oculto: chip "Oculto" en vez de texto gris
+.courses .coursebox.dimmed .coursename a,
+.courses .coursebox .coursename a.dimmed {
+  color: $muted !important;
+}
+
+// ============================================================
+// 7. PÁGINA DEL CURSO
+// ============================================================
+.course-content .section,
+.course-content li.section.course-section {
+  margin-bottom: 1rem !important;
+  padding: 1rem 1.25rem !important;
+  border: 1px solid $border !important;
+  border-radius: $r-panel !important;
+  background: $surface !important;
+  box-shadow: none !important;
+}
+.course-content .sectionname,
+.course-content .course-section-header h3,
+.course-content .course-section-header .sectionname {
+  color: $text !important;
+  font-size: 1rem !important;
+  font-weight: 650 !important;
+  letter-spacing: -.01em;
+}
+.course-content .course-section-header .icons-collapse-expand .icon,
+.course-content .collapsed .icon { color: $muted; }
+#collapsesections,
+.course-content .collapse-sections {
+  font-size: .8125rem;
+  font-weight: 600;
+  color: $brand;
+}
+.course-content .summarytext,
+.course-content .section-summary-activities {
+  color: $text-3;
+  font-size: .875rem;
+}
+
+// Actividades como filas de tabla
+.course-content .activity-item:not(.activityinline) {
+  padding: .75rem .625rem !important;
+  border: 0 !important;
+  border-radius: $r-control !important;
+  background: transparent !important;
+  transition: background-color .12s ease;
+  &:hover { background: $row-hover !important; }
+}
+.course-content li.activity + li.activity .activity-item:not(.activityinline) {
+  border-top: 1px solid $border !important;
+  border-radius: 0 !important;
+  &:hover { border-radius: $r-control !important; border-top-color: transparent !important; }
+}
+.course-content .activityname a,
+.course-content .activityname .aalink,
+.activityname .instancename {
+  color: $text !important;
+  font-size: .875rem;
+  font-weight: 600;
+}
+.course-content .activityname a:hover .instancename { color: $brand !important; }
+.course-content .activity-altcontent,
+.course-content .description,
+.course-content .activity-dates {
+  color: $muted;
+  font-size: .8125rem;
+}
+
+// Íconos de actividad: tiles suaves con ícono oscuro
+.activityiconcontainer,
+.activity-item .activityiconcontainer {
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  min-width: 2.25rem;
+  padding: 0 !important;
+  border-radius: $r-panel !important;
+  background-color: $brand-soft !important;
+  .activityicon,
+  img.icon {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+    filter: brightness(0) opacity(.68) !important;
+  }
+}
+.activityiconcontainer.content       { background-color: $brand-soft !important; }
+.activityiconcontainer.communication { background-color: $ok-bg !important; }
+.activityiconcontainer.assessment    { background-color: $info-bg !important; }
+.activityiconcontainer.collaboration { background-color: $warn-bg !important; }
+.activityiconcontainer.interactivecontent { background-color: $purple-bg !important; }
+.activityiconcontainer.interface,
+.activityiconcontainer.administration { background-color: $gray-bg !important; }
+
+// Completado: pills
+[data-action="toggle-manual-completion"],
+.completion-info .btn,
+.activity-information .btn {
+  padding: .3rem .7rem !important;
+  border-radius: $r-control !important;
+  font-size: .75rem !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  &.btn-outline-secondary {
+    color: $text-2 !important;
+    background: $surface !important;
+    border: 1px solid $border-strong !important;
+    &:hover { background: $subtle !important; color: $text !important; }
+  }
+  &.btn-success {
+    color: $ok-ink !important;
+    background: $ok-bg !important;
+    border: 1px solid $ok-line !important;
+  }
+}
+.activity-information .badge,
+.completion-info .badge {
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  font-size: .6875rem;
+  font-weight: 600;
+  &.badge-success, &.alert-success { color: $ok-ink; background: $ok-bg; border: 0; }
+  &.badge-light, &.bg-light { color: $text-3; background: $gray-bg; border: 0; }
+}
+
+// Header de actividad (página de un recurso o cuestionario)
+.activity-header {
+  padding: .875rem 1rem;
+  border: 1px solid $border;
+  border-radius: $r-panel;
+  background: $surface;
+  font-size: .8125rem;
+}
+
+// ============================================================
+// 8. ÍNDICE DEL CURSO Y DRAWERS
+// ============================================================
+.drawer,
+.drawer.drawer-left,
+.drawer.drawer-right {
+  background: $surface !important;
+  border-color: $border !important;
+  box-shadow: none !important;
+}
+.drawer.drawer-left { border-right: 1px solid $border !important; }
+.drawer.drawer-right { border-left: 1px solid $border !important; }
+.drawerheader { border-bottom: 1px solid $border; }
+
 .courseindex {
   .courseindex-section-title,
   .courseindex-section-title a {
-    font-weight: 600;
-    color: $ajv-text;
+    color: $text !important;
+    font-size: .8125rem;
+    font-weight: 650;
   }
-  .courseindex-link { color: $ajv-muted; }
-  .courseindex-link:hover { color: $ajv-text; text-decoration: none; }
-  .courseindex-item { border-radius: .5rem; }
+  .courseindex-item {
+    padding: .375rem .5rem;
+    border-radius: $r-control !important;
+    &:hover { background: $subtle; }
+  }
+  .courseindex-link,
+  .courseindex-item .courseindex-name { color: $text-3 !important; font-size: .8125rem; }
+  .courseindex-link:hover { color: $text !important; text-decoration: none; }
   .courseindex-item.pageitem {
-    background: $ajv-teal-bg;
-    a, .courseindex-link { color: $ajv-teal-text; font-weight: 500; }
+    background: $brand-soft !important;
+    color: $brand-ink !important;
+    a, .courseindex-link { color: $brand-ink !important; font-weight: 600; }
   }
+  .courseindex-chevron .icon { color: $muted; }
+  .completioninfo .icon { color: $ok-ink; }
+}
+
+// ============================================================
+// 9. BLOQUES Y DASHBOARD
+// ============================================================
+.block.card,
+.block {
+  border: 1px solid $border !important;
+  border-radius: $r-panel !important;
+  background: $surface !important;
+  box-shadow: none !important;
+}
+.block .card-title,
+.block h5.card-title,
+.block .card-header h5 {
+  color: $text !important;
+  font-size: .9375rem !important;
+  font-weight: 650 !important;
+  letter-spacing: -.005em;
+}
+
+.dashboard-card,
+.block_myoverview .dashboard-card,
+.block_recentlyaccessedcourses .dashboard-card,
+.block_starredcourses .dashboard-card {
+  overflow: hidden;
+  border: 1px solid $border !important;
+  border-radius: $r-card !important;
+  background: $surface !important;
+  box-shadow: $shadow-card !important;
+  transform: none !important;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  &:hover {
+    border-color: $border-strong !important;
+    box-shadow: 0 4px 12px rgba(16, 24, 40, .06) !important;
+    transform: none !important;
+  }
+  .card-img,
+  .card-img-top { height: 104px !important; }
+  .card-img[style*="data:image/svg"],
+  .card-img-top[style*="data:image/svg"] {
+    background:
+      url($ico-cap-light) no-repeat 1.1rem center / 30px 30px,
+      radial-gradient(18rem 8rem at 90% -20%, rgba(79, 122, 196, .45), transparent 70%),
+      $navy !important;
+  }
+  .card-body { padding: 1rem 1.1rem !important; }
+  .coursename, .multiline, .aalink {
+    color: $text !important;
+    font-size: .9375rem;
+    font-weight: 650;
+  }
+  .categoryname, .text-muted, .small { color: $muted !important; font-size: .75rem; }
+  .progress {
+    height: 6px;
+    border-radius: 999px;
+    background: $gray-bg;
+  }
+  .progress-bar { background: $brand !important; }
+}
+
+// Toolbar de filtros de "Mis cursos"
+.block_myoverview [data-region="filter"] .btn,
+.block_myoverview .dropdown-toggle {
+  color: $text-2 !important;
+  background: $surface !important;
+  border: 1px solid $border-strong !important;
+  border-radius: $r-control !important;
+  font-size: .8125rem;
+  font-weight: 600;
+}
+.block_myoverview [data-region="filter"] .form-control,
+.block_myoverview input[type="text"] { border-radius: $r-control; }
+
+// Listas de cursos en formato lista
+.course-listitem,
+.list-group-item {
+  border-color: $border;
+  &:hover { background: $row-hover; }
+}
+.list-group-item.active {
+  background: $brand-soft;
+  border-color: $brand-200;
+  color: $brand-ink;
+}
+
+// ============================================================
+// 10. BOTONES
+// ============================================================
+.btn {
+  padding: .5rem .875rem;
+  border-radius: $r-control;
+  font-size: .8125rem;
+  font-weight: 600;
+  box-shadow: none !important;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn-lg { padding: .7rem 1.1rem; font-size: .9375rem; }
+.btn-sm { padding: .3rem .6rem; font-size: .75rem; }
+
+.btn-primary,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active {
+  color: #fff !important;
+  background: $brand !important;
+  border: 1px solid $brand !important;
+}
+.btn-primary:hover,
+.btn-primary:focus { background: $brand-ink !important; border-color: $brand-ink !important; }
+
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light,
+.btn-default {
+  color: $text !important;
+  background: $surface !important;
+  border: 1px solid $border-strong !important;
+  &:hover, &:focus { background: $subtle !important; color: $text !important; }
+}
+.btn-outline-primary {
+  color: $brand !important;
+  background: $surface !important;
+  border: 1px solid $brand-200 !important;
+  &:hover { background: $brand-soft !important; border-color: $brand !important; }
+}
+.btn-danger { background: #d92d20 !important; border-color: #d92d20 !important; color: #fff !important; }
+.btn-success { background: #079455 !important; border-color: #079455 !important; color: #fff !important; }
+.btn-link { color: $brand; font-weight: 600; }
+.btn:focus,
+.btn.focus { box-shadow: $ring !important; }
+
+// ============================================================
+// 11. FORMULARIOS
+// ============================================================
+.form-control,
+.custom-select,
+select.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="url"],
+textarea {
+  border: 1px solid $border-strong;
+  border-radius: $r-control !important;
+  color: $text;
+  font-size: .875rem;
+  box-shadow: none;
+}
+.form-control::placeholder { color: #98a2b3; }
+.form-control:focus,
+.custom-select:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: $brand-500 !important;
+  box-shadow: $ring !important;
+  outline: none;
+}
+.mform .col-form-label,
+.mform label,
+.form-label,
+.col-form-label {
+  color: $text;
+  font-size: .8125rem;
+  font-weight: 600;
+}
+.form-description,
+.form-defaultinfo,
+.form-text { color: $muted; font-size: .75rem; }
+
+// Secciones colapsables de formularios
+.mform fieldset.collapsible legend,
+.mform fieldset legend,
+.mform .fheader {
+  color: $text !important;
+  font-size: 1rem !important;
+  font-weight: 650 !important;
+}
+.mform fieldset.collapsible,
+.mform fieldset.clearfix {
+  border-bottom: 1px solid $border;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before,
+.form-check-input:checked {
+  background-color: $brand !important;
+  border-color: $brand !important;
+}
+.custom-control-input:focus ~ .custom-control-label::before { box-shadow: $ring; }
+
+// Ajustes de administración: filas separadas
+.form-item,
+#adminsettings .form-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid $border;
+  margin: 0;
+}
+.form-item .form-setting .form-defaultinfo { margin-top: .375rem; }
+
+// ============================================================
+// 12. TABLAS (v2-table)
+// ============================================================
+.generaltable:not(.calendartable):not(.gradereport-grader-table),
+table.flexible:not(.calendartable),
+.table:not(.calendartable):not(.gradereport-grader-table) {
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid $border;
+  border-radius: $r-panel;
+  background: $surface;
+  font-size: .8125rem;
+
+  thead th,
+  th.header {
+    padding: .7rem 1rem;
+    border: 0 !important;
+    border-bottom: 1px solid $border !important;
+    background: $subtle !important;
+    color: $muted !important;
+    font-size: .6875rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+    white-space: nowrap;
+    a { color: $muted; }
+  }
+  td {
+    padding: .8rem 1rem;
+    border: 0 !important;
+    color: $text-2;
+    vertical-align: middle;
+  }
+  tbody tr + tr td { border-top: 1px solid $border !important; }
+  tbody tr { background: transparent !important; transition: background-color .12s ease; }
+  tbody tr:hover { background: $row-hover !important; }
+}
+.table-striped tbody tr:nth-of-type(odd) { background: transparent; }
+
+// ============================================================
+// 13. ALERTAS, BADGES, AVISOS
+// ============================================================
+.alert {
+  padding: .875rem 1rem;
+  border-radius: $r-panel;
+  font-size: .875rem;
+}
+.alert-info,
+.alert-primary { color: $brand-ink; background: $brand-50; border: 1px solid $brand-200; }
+.alert-success { color: $ok-ink; background: $ok-bg; border: 1px solid $ok-line; }
+.alert-warning { color: $warn-ink; background: $warn-bg; border: 1px solid $warn-line; }
+.alert-danger,
+.alert-error { color: $err-ink; background: $err-bg; border: 1px solid $err-line; }
+
+.badge {
+  padding: .25rem .55rem;
+  border-radius: 999px;
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+.badge-primary, .badge-info { color: $brand-ink; background: $brand-soft; }
+.badge-success { color: $ok-ink; background: $ok-bg; }
+.badge-warning { color: $warn-ink; background: $warn-bg; }
+.badge-danger { color: $err-ink; background: $err-bg; }
+.badge-secondary, .badge-light { color: $text-3; background: $gray-bg; }
+
+// ============================================================
+// 14. MENÚS, POPOVERS, MODALES, PAGINACIÓN
+// ============================================================
+.dropdown-menu {
+  padding: .375rem;
+  border: 1px solid $border;
+  border-radius: $r-panel;
+  background: $surface;
+  box-shadow: $shadow-pop;
+  font-size: .8125rem;
+}
+.dropdown-item {
+  padding: .5rem .75rem;
+  border-radius: $r-control;
+  color: $text-2;
+  font-weight: 500;
+  &:hover, &:focus { background: $subtle; color: $text; }
+  &.active, &:active { background: $brand-soft !important; color: $brand-ink !important; }
+}
+.dropdown-divider { border-top-color: $border; margin: .375rem 0; }
+
+.popover-region-container,
+.popover {
+  border: 1px solid $border !important;
+  border-radius: $r-panel !important;
+  box-shadow: $shadow-pop !important;
+  overflow: hidden;
+}
+.popover-region-header-container,
+.popover-region-footer-container { border-color: $border !important; }
+.popover-region-header-text { color: $text; font-size: .875rem; font-weight: 650; }
+
+.modal-content {
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: $shadow-modal;
+}
+.modal-header { padding: 1rem 1.25rem; border-bottom: 1px solid $border; }
+.modal-title { color: $text; font-size: 1.0625rem; font-weight: 650; }
+.modal-body { padding: 1.25rem; font-size: .875rem; color: $text-2; }
+.modal-footer { padding: .875rem 1.25rem; border-top: 1px solid $border; background: $subtle; border-radius: 0 0 10px 10px; }
+.modal-backdrop.show { opacity: .45; background: $navy; }
+
+.pagination .page-link {
+  margin: 0 .125rem;
+  border: 1px solid $border;
+  border-radius: $r-control !important;
+  color: $text-2;
+  font-size: .8125rem;
+  font-weight: 600;
+  &:hover { background: $subtle; color: $text; }
+}
+.pagination .page-item.active .page-link {
+  color: #fff;
+  background: $brand;
+  border-color: $brand;
+}
+
+.progress { border-radius: 999px; background: $gray-bg; }
+.progress-bar { background-color: $brand; }
+
+.breadcrumb { background: transparent; font-size: .75rem; }
+
+// ============================================================
+// 15. LOGIN (auth-view de Astra)
+// ============================================================
+body#page-login-index,
+body.pagelayout-login {
+  background:
+    radial-gradient(42rem 26rem at 8% -10%, rgba(79, 122, 196, .32), transparent 70%),
+    radial-gradient(34rem 22rem at 100% 110%, rgba(103, 85, 157, .14), transparent 70%),
+    $navy !important;
+  background-attachment: fixed !important;
+
+  #page, #page-wrapper, #region-main, .login-wrapper, #page-content {
+    background: transparent !important;
+  }
+
+  .login-container {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    max-width: 30rem;
+    padding: 2.25rem 2rem !important;
+    border: 1px solid rgba(116, 151, 197, .18) !important;
+    border-radius: 1.15rem !important;
+    color: #f4f7fb;
+    background:
+      radial-gradient(circle at 94% 2%, rgba(66, 137, 201, .13), transparent 14rem),
+      radial-gradient(circle at 4% 102%, rgba(103, 85, 157, .055), transparent 13rem),
+      linear-gradient(145deg, rgba(10, 23, 42, .92), rgba(7, 17, 32, .86)) !important;
+    box-shadow: inset 0 1px 0 rgba(178, 207, 243, .055), 0 24px 60px rgba(0, 7, 20, .34) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(112%);
+    backdrop-filter: blur(20px) saturate(112%);
+
+    // Textura de ruido
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .1;
+      pointer-events: none;
+      background-image: url($ico-noise);
+      background-size: 160px 160px;
+      mix-blend-mode: screen;
+    }
+    // Logo del grupo arriba del formulario
+    &::before {
+      content: "";
+      display: block;
+      height: 52px;
+      margin: 0 auto 1.5rem;
+      background: url("brand/logo-white.png") no-repeat center / contain;
+    }
+  }
+
+  .login-logo { display: none; }
+
+  .login-heading,
+  .login-container h1,
+  .login-container h2 {
+    color: #f5f8fc !important;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.3;
+  }
+  .login-container h2.login-heading,
+  .login-container .login-divider + h2 {
+    margin-top: 0;
+    color: #d8e3f0 !important;
+    font-size: .9375rem;
+    font-weight: 600;
+  }
+  .login-container,
+  .login-container p,
+  .login-container .text-muted,
+  .login-instructions,
+  .login-container label,
+  .login-form-forgotpassword {
+    color: #9dacc1 !important;
+    font-size: .8125rem;
+  }
+  .login-container a { color: $eyebrow-dk !important; font-weight: 600; }
+  .login-divider { border-top: 1px solid rgba(255, 255, 255, .1) !important; margin: 1.5rem 0; }
+
+  .login-container .form-control {
+    padding: .72rem .85rem;
+    height: auto;
+    border: 1px solid rgba(196, 211, 228, .72) !important;
+    border-radius: .78rem !important;
+    background: rgba(246, 249, 252, .96) !important;
+    color: #182438 !important;
+    font-size: .875rem;
+    box-shadow: inset 0 1px 2px rgba(15, 34, 58, .055) !important;
+    &::placeholder { color: #7b8797; }
+    &:focus {
+      background: rgba(250, 252, 255, .99) !important;
+      border-color: #6f9de8 !important;
+      box-shadow: 0 0 0 3px rgba(82, 137, 219, .15) !important;
+    }
+  }
+
+  // Botón principal plateado (como el login de Astra)
+  #loginbtn,
+  .login-container .btn-primary {
+    width: 100%;
+    padding: .75rem 1rem !important;
+    border: 1px solid rgba(255, 255, 255, .55) !important;
+    border-radius: .78rem !important;
+    color: #11161d !important;
+    background: linear-gradient(110deg, #f5f7fa 0%, #e6eaf0 55%, #cfd6e0 100%) !important;
+    background-size: 112% 100% !important;
+    font-size: .875rem;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .32), inset 0 1px 0 rgba(255, 255, 255, .6) !important;
+    transition: transform .18s ease, filter .18s ease, background-position .22s ease;
+    &:hover {
+      background-position: 8% 50% !important;
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+  }
+  .login-container .btn-secondary,
+  .login-identityproviders .btn {
+    color: #edf4fc !important;
+    background: rgba(170, 190, 220, .07) !important;
+    border: 1px solid rgba(170, 190, 220, .16) !important;
+    border-radius: .78rem !important;
+    &:hover { background: rgba(170, 190, 220, .12) !important; }
+  }
+  .custom-control-label::before {
+    background: rgba(255, 255, 255, .08);
+    border-color: rgba(196, 211, 228, .4);
+  }
+}
+
+// ============================================================
+// 16. EXTRAS
+// ============================================================
+// Botón de ayuda flotante
+#page-footer .btn-footer-popover,
+.btn-footer-popover {
+  background-color: $navy !important;
+  border: 1px solid rgba(255, 255, 255, .08) !important;
+  color: #fff !important;
+  box-shadow: $shadow-pop !important;
+  transition: background-color .15s ease;
+  .icon { color: #fff !important; }
+  &:hover, &:focus { background-color: $brand !important; transform: none; }
+}
+
+// Scrollbars finos
+* { scrollbar-width: thin; scrollbar-color: $border-strong transparent; }
+
+// Foco accesible
+:focus-visible { outline: 2px solid rgba(79, 122, 196, .5); outline-offset: 2px; }
+
+// Usuario / avatares
+.userinitials {
+  background: $brand-soft;
+  color: $brand-ink;
+  font-weight: 600;
 }
