@@ -1380,10 +1380,11 @@ body#page-login-index {
       align-self: end;
       max-width: 36rem;
       color: #f5f8fc;
-      font-size: clamp(2.5rem, 4.2vw, 3.9rem);
-      font-weight: 800;
-      line-height: 1.02;
-      letter-spacing: -.045em;
+      font-size: 2.25rem;  // text-4xl
+      font-weight: 800;    // font-extrabold
+      line-height: 1.25;   // leading-tight
+      letter-spacing: -.025em; // tracking-tight
+      @media (min-width: 1280px) { font-size: 3rem; } // xl:text-5xl
       text-wrap: balance;
     }
     &::after {
@@ -1415,10 +1416,10 @@ body#page-login-index {
       margin: 0 0 .5rem;
       background: none;
       color: #f5f8fc;
-      font-size: 1.6rem;
-      font-weight: 800;
+      font-size: 1.5rem;   // text-2xl
+      font-weight: 800;    // font-extrabold
       letter-spacing: -.025em;
-      line-height: 1.2;
+      line-height: 2rem;
     }
   }
   .login-form::before {
