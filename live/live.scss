@@ -19,8 +19,8 @@
 :root { --ajv-live-css: "astra-v2"; }
 
 // Íconos SVG reutilizables (data URI, trazo azul / claro)
-$ico-cap-light: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238fb8ec' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10 12 5 2 10l10 5 10-5Z'/%3E%3Cpath d='M6 12v5c3 2 9 2 12 0v-5'/%3E%3C/svg%3E";
-$ico-book-brand: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232f5fb3' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z'/%3E%3Cpath d='M8 7h7'/%3E%3C/svg%3E";
+$ico-cap-light: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a9b3ea' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10 12 5 2 10l10 5 10-5Z'/%3E%3Cpath d='M6 12v5c3 2 9 2 12 0v-5'/%3E%3C/svg%3E";
+$ico-book-brand: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e3096' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Z'/%3E%3Cpath d='M8 7h7'/%3E%3C/svg%3E";
 $ico-noise: "data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
 
 // Franja blanca a todo el ancho (header de página estilo Astra)
@@ -89,7 +89,7 @@ hr { border-top-color: $border; }
 nav.navbar.fixed-top,
 nav.navbar.fixed-top.bg-white {
   background:
-    radial-gradient(28rem 9rem at 6% -40%, rgba(79, 122, 196, .3), transparent 70%),
+    radial-gradient(28rem 9rem at 6% -40%, rgba(59, 79, 192, .16), transparent 70%),
     $navy !important;
   border-bottom: 1px solid rgba(255, 255, 255, .08) !important;
   box-shadow: none !important;
@@ -164,8 +164,8 @@ nav.navbar.fixed-top.bg-white {
   }
   .userinitials {
     color: #eef3fa !important;
-    background: rgba(143, 184, 236, .16) !important;
-    border: 1px solid rgba(143, 184, 236, .3) !important;
+    background: rgba(169, 179, 234, .16) !important;
+    border: 1px solid rgba(169, 179, 234, .3) !important;
     font-size: .75rem;
     font-weight: 600;
   }
@@ -480,20 +480,20 @@ body.path-course-view #page-header .page-header-headings h1 {
   filter: none !important;
   background:
     url($ico-cap-light) no-repeat 1.25rem center / 34px 34px,
-    radial-gradient(18rem 8rem at 90% -20%, rgba(79, 122, 196, .45), transparent 70%),
+    radial-gradient(18rem 8rem at 90% -20%, rgba(59, 79, 192, .45), transparent 70%),
     $navy !important;
 }
 .courses .coursebox:nth-child(3n+2):not(:has(.courseimage))::before {
   background:
     url($ico-cap-light) no-repeat 1.25rem center / 34px 34px,
-    radial-gradient(18rem 8rem at 15% 120%, rgba(79, 122, 196, .4), transparent 70%),
+    radial-gradient(18rem 8rem at 15% 120%, rgba(59, 79, 192, .4), transparent 70%),
     $navy-ink !important;
 }
 .courses .coursebox:nth-child(3n+3):not(:has(.courseimage))::before {
   background:
     url($ico-cap-light) no-repeat 1.25rem center / 34px 34px,
-    radial-gradient(18rem 8rem at 60% -30%, rgba(143, 184, 236, .3), transparent 70%),
-    #13284a !important;
+    radial-gradient(18rem 8rem at 60% -30%, rgba(169, 179, 234, .3), transparent 70%),
+    #232a52 !important;
 }
 
 // Curso oculto: chip "Oculto" en vez de texto gris
@@ -710,7 +710,7 @@ body.path-course-view #page-header .page-header-headings h1 {
   .card-img-top[style*="data:image/svg"] {
     background:
       url($ico-cap-light) no-repeat 1.1rem center / 30px 30px,
-      radial-gradient(18rem 8rem at 90% -20%, rgba(79, 122, 196, .45), transparent 70%),
+      radial-gradient(18rem 8rem at 90% -20%, rgba(59, 79, 192, .45), transparent 70%),
       $navy !important;
   }
   .card-body { padding: 1rem 1.1rem !important; }
@@ -1153,7 +1153,7 @@ body.pagelayout-login {
 * { scrollbar-width: thin; scrollbar-color: $border-strong transparent; }
 
 // Foco accesible
-:focus-visible { outline: 2px solid rgba(79, 122, 196, .5); outline-offset: 2px; }
+:focus-visible { outline: 2px solid rgba(59, 79, 192, .5); outline-offset: 2px; }
 
 // Usuario / avatares
 .userinitials {
