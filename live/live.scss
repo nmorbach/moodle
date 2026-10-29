@@ -26,3 +26,19 @@
     transform: translateY(-2px);
   }
 }
+
+// Logo blanco del grupo en la topbar (reemplaza el cuadrito "AJ" y el texto).
+// La URL es relativa a live.css → https://nmorbach.github.io/moodle/brand/logo-white.png
+.navbar.fixed-top .navbar-brand {
+  font-size: 0;
+  color: transparent;
+  &:not(:has(img))::before {
+    content: "";
+    width: 76px;
+    height: 36px;
+    margin-right: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: url("brand/logo-white.png") no-repeat left center / contain;
+  }
+}
