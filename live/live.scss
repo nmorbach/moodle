@@ -147,8 +147,12 @@ nav.navbar.fixed-top.bg-white {
   .divider { border-color: rgba(255, 255, 255, .1) !important; }
   .editmode-switch-form label { font-size: .8125rem; font-weight: 500; }
 
-  .userinitials,
   .avatar.current {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  .userinitials {
     color: #eef3fa !important;
     background: rgba(143, 184, 236, .16) !important;
     border: 1px solid rgba(143, 184, 236, .3) !important;
@@ -1144,4 +1148,54 @@ body.pagelayout-login {
   background: $brand-soft;
   color: $brand-ink;
   font-weight: 600;
+}
+
+
+// ============================================================
+// 17. PULIDO v2.1
+// ============================================================
+
+// Tabs sobre la franja blanca (sin caja gris)
+.secondary-navigation,
+.secondary-navigation .navigation,
+.secondary-navigation .moremenu,
+.secondary-navigation .nav-tabs,
+.secondary-navigation .more-nav {
+  background: transparent !important;
+}
+
+// Alinear header, hero y tabs con el contenido de abajo
+.ajv-hero,
+#page-header,
+.secondary-navigation .navigation {
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+
+// Cards con imagen real: portada fija arriba, sin depender del orden del DOM
+.courses .coursebox:has(.courseimage) {
+  position: relative;
+  padding-top: calc(112px + 1.1rem) !important;
+}
+.courses .coursebox .courseimage {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 112px;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  overflow: hidden;
+  border-radius: $r-card $r-card 0 0;
+  background: $navy;
+  img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover;
+    border-radius: 0 !important;
+  }
 }
