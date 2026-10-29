@@ -1199,3 +1199,39 @@ body.pagelayout-login {
     border-radius: 0 !important;
   }
 }
+
+// ---------- Curso: sin caja dentro de caja ----------
+// La lista interna de actividades también tiene la clase "section": se resetea.
+.course-content ul.section,
+.course-content .section .content > ul,
+.course-content .section ul.img-text {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+// Etiquetas / Área de texto y medios: sin borde propio
+.course-content .activity-item.activityinline {
+  padding: .5rem 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.course-content .activity-item.activityinline:hover { background: transparent !important; }
+.course-content .activity-altcontent img,
+.course-content .contentwithoutlink img,
+.course-content .summarytext img {
+  max-width: 100%;
+  height: auto;
+  border-radius: $r-panel;
+}
+// Botón cerrar del índice
+.drawerheader .btn,
+.drawerheader .btn-icon {
+  border: 0 !important;
+  background: transparent !important;
+  color: $muted !important;
+  &:hover { background: $subtle !important; color: $text !important; }
+}
