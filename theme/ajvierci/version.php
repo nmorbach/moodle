@@ -17,8 +17,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'theme_ajvierci';
-$plugin->version   = 2026102905;
-$plugin->release   = '1.2.0';
+$plugin->version   = 2026102906;
+$plugin->release   = '1.3.0';
 $plugin->requires  = 2022041900; // Moodle 4.0+.
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->dependencies = [

@@ -51,3 +51,12 @@ $string['livecssenabled'] = 'Live CSS';
 $string['livecssenabled_desc'] = 'Load an extra stylesheet from the URL below, after the theme styles. Visual changes published there apply without reinstalling the theme. Uncheck to turn it off instantly.';
 $string['livecssurl'] = 'Live CSS URL';
 $string['livecssurl_desc'] = 'HTTPS address of the live stylesheet (GitHub Pages).';
+
+$string['kpimine'] = 'My courses';
+$string['kpimine_hint'] = 'Active enrolments';
+$string['kpiprogress'] = 'In progress';
+$string['kpiprogress_hint'] = 'Not completed yet';
+$string['kpidone'] = 'Completed';
+$string['kpidone_hint'] = 'Finished courses';
+$string['kpicatalog'] = 'Available';
+$string['kpicatalog_hint'] = 'In the catalog';

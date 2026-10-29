@@ -51,3 +51,12 @@ $string['livecssenabled'] = 'CSS en vivo';
 $string['livecssenabled_desc'] = 'Carga una hoja de estilos extra desde la URL de abajo, después de los estilos del tema. Los cambios visuales que se publiquen ahí se aplican sin reinstalar el tema. Desmarcalo para apagarlo al instante.';
 $string['livecssurl'] = 'URL del CSS en vivo';
 $string['livecssurl_desc'] = 'Dirección HTTPS de la hoja de estilos en vivo (GitHub Pages).';
+
+$string['kpimine'] = 'Mis cursos';
+$string['kpimine_hint'] = 'Inscripciones activas';
+$string['kpiprogress'] = 'En progreso';
+$string['kpiprogress_hint'] = 'Todavía sin completar';
+$string['kpidone'] = 'Completados';
+$string['kpidone_hint'] = 'Cursos finalizados';
+$string['kpicatalog'] = 'Disponibles';
+$string['kpicatalog_hint'] = 'En el catálogo';

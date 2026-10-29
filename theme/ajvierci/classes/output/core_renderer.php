@@ -86,12 +86,38 @@ class core_renderer extends \theme_boost\output\core_renderer {
         ];
 
         if ($loggedin && !empty($settings->herostats)) {
-            $mycourses = count(enrol_get_my_courses('id'));
+            global $CFG;
+            require_once($CFG->libdir . '/completionlib.php');
+
+            $courses = enrol_get_my_courses('enablecompletion');
+            $completed = 0;
+            foreach ($courses as $course) {
+                $info = new \completion_info($course);
+                if ($info->is_enabled() && $info->is_course_complete($USER->id)) {
+                    $completed++;
+                }
+            }
+            $mine = count($courses);
             $available = $DB->count_records_select('course', 'visible = 1 AND id <> :siteid', ['siteid' => SITEID]);
+
+            $mycoursesurl = (new moodle_url('/my/courses.php'))->out(false);
+            $kpi = function(string $key, int $value, string $url) {
+                return [
+                    'key' => $key,
+                    'is' . $key => true,
+                    'value' => $value,
+                    'label' => get_string('kpi' . $key, 'theme_ajvierci'),
+                    'hint' => get_string('kpi' . $key . '_hint', 'theme_ajvierci'),
+                    'url' => $url,
+                ];
+            };
+
             $context['showstats'] = true;
-            $context['stats'] = [
-                ['value' => $mycourses, 'label' => get_string('herostatmine', 'theme_ajvierci')],
-                ['value' => $available, 'label' => get_string('herostatavailable', 'theme_ajvierci')],
+            $context['kpis'] = [
+                $kpi('mine', $mine, $mycoursesurl),
+                $kpi('progress', $mine - $completed, $mycoursesurl),
+                $kpi('done', $completed, $mycoursesurl),
+                $kpi('catalog', $available, $context['catalogurl']),
             ];
         }
 

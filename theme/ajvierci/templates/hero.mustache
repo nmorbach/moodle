@@ -9,13 +9,13 @@
 {{!
     @template theme_ajvierci/hero
 
-    Hero shown at the top of the site home.
+    Inicio estilo Astra: header compacto (astra-page-header v2-home-header)
+    y franja de KPIs (v2-kpi-strip).
 
     Example context (json):
     {
-        "eyebrow": "Grupo AJ Vierci",
         "title": "Portal de Capacitación",
-        "subtitle": "Cursos, materiales y evaluaciones para todo el equipo, en un solo lugar.",
+        "subtitle": "Cursos, materiales y evaluaciones para todo el equipo.",
         "greeting": "Hola, Elías",
         "loggedin": true,
         "primaryurl": "#",
@@ -23,30 +23,47 @@
         "catalogurl": "#",
         "catalogtext": "Ver catálogo",
         "showstats": true,
-        "stats": [
-            {"value": 3, "label": "Mis cursos"},
-            {"value": 12, "label": "Cursos disponibles"}
+        "kpis": [
+            {"key": "mine", "label": "Mis cursos", "value": 3, "hint": "Inscripciones activas", "url": "#"},
+            {"key": "progress", "label": "En progreso", "value": 2, "hint": "Con actividades pendientes", "url": "#"},
+            {"key": "done", "label": "Completados", "value": 1, "hint": "Cursos finalizados", "url": "#"},
+            {"key": "catalog", "label": "Disponibles", "value": 12, "hint": "En el catálogo", "url": "#"}
         ]
     }
 }}
-<section class="ajv-hero" aria-labelledby="ajv-hero-title">
-    <div class="ajv-hero__body">
-        <span class="ajv-hero__eyebrow">{{#greeting}}{{{greeting}}} · {{/greeting}}{{{eyebrow}}}</span>
-        <h1 class="ajv-hero__title" id="ajv-hero-title">{{{title}}}</h1>
-        <p class="ajv-hero__text">{{{subtitle}}}</p>
-        <div class="ajv-hero__actions">
-            <a class="btn btn-primary ajv-hero__cta" href="{{primaryurl}}">{{primarytext}}</a>
-            <a class="btn ajv-hero__ghost" href="{{catalogurl}}">{{catalogtext}}</a>
+<section class="ajv-home" aria-labelledby="ajv-home-title">
+    <div class="ajv-home__header">
+        <div class="ajv-home__heading">
+            <h1 class="ajv-home__title" id="ajv-home-title">
+                <span class="ajv-home__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+                </span>
+                <span>{{{title}}}</span>
+            </h1>
+            <p class="ajv-home__sub">{{#greeting}}<strong>{{{greeting}}}</strong> · {{/greeting}}{{{subtitle}}}</p>
+        </div>
+        <div class="ajv-home__actions">
+            <a class="btn btn-secondary" href="{{catalogurl}}">{{catalogtext}}</a>
+            <a class="btn btn-primary" href="{{primaryurl}}">{{primarytext}}</a>
         </div>
     </div>
     {{#showstats}}
-    <div class="ajv-hero__stats">
-        {{#stats}}
-        <div class="ajv-hero__stat">
-            <span class="ajv-hero__stat-value">{{value}}</span>
-            <span class="ajv-hero__stat-label">{{label}}</span>
-        </div>
-        {{/stats}}
+    <div class="ajv-kpis" role="list">
+        {{#kpis}}
+        <a class="ajv-kpi ajv-kpi--{{key}}" href="{{url}}" role="listitem">
+            <span class="ajv-kpi__icon" aria-hidden="true">
+                {{#ismine}}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2Z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z"/></svg>{{/ismine}}
+                {{#isprogress}}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>{{/isprogress}}
+                {{#isdone}}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>{{/isdone}}
+                {{#iscatalog}}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>{{/iscatalog}}
+            </span>
+            <span class="ajv-kpi__body">
+                <span class="ajv-kpi__label">{{label}}</span>
+                <span class="ajv-kpi__value">{{value}}</span>
+                <span class="ajv-kpi__hint">{{hint}}</span>
+            </span>
+        </a>
+        {{/kpis}}
     </div>
     {{/showstats}}
 </section>

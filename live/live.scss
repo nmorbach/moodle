@@ -1696,3 +1696,130 @@ body#page-login-index .loginform > h1.login-heading:not(.sr-only) { display: non
   border: 0;
 }
 .resourceimg img { max-width: 100%; height: auto; border-radius: $r-panel; }
+
+// ============================================================
+// 23. INICIO v1.3 — astra-page-header v2-home-header + v2-kpi-strip
+// (medidas de astra_client_dashboard/css/sistema-v2.css)
+// ============================================================
+.ajv-home { margin: 0 0 1.75rem; }
+
+.ajv-home__header {
+  @include full-bleed-surface;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin: 0 0 1.5rem;
+  padding: 1.5rem 1.25rem 1.25rem;
+  &::after { @include full-bleed-line; }
+}
+.ajv-home__title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0;
+  color: $text;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 650;
+  letter-spacing: -.015em;
+}
+.ajv-home__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: $r-panel;
+  background: $brand-soft;
+  color: $brand;
+  svg { width: 1.1rem; height: 1.1rem; }
+}
+.ajv-home__sub {
+  margin: .35rem 0 0 3rem;
+  color: $muted;
+  font-size: .8125rem;
+  strong { color: $text-2; font-weight: 600; }
+}
+.ajv-home__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+// Franja de KPIs
+.ajv-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 1.25rem;
+  overflow: hidden;
+  border: 1px solid $border;
+  border-radius: $r-card;
+  background: $border;
+  box-shadow: $shadow-card;
+}
+.ajv-kpi {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.35rem 1.5rem;
+  background: $surface;
+  text-align: left;
+  text-decoration: none !important;
+  transition: background-color .12s ease;
+  &:hover, &:focus { background: $subtle; }
+}
+.ajv-kpi__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  background: $brand-soft;
+  color: $brand;
+  svg { width: 1.05rem; height: 1.05rem; }
+}
+.ajv-kpi--done .ajv-kpi__icon { background: $ok-bg; color: $ok-ink; }
+.ajv-kpi__body { display: flex; flex-direction: column; min-width: 0; }
+.ajv-kpi__label { color: $muted; font-size: .75rem; font-weight: 600; }
+.ajv-kpi__value {
+  margin-top: .25rem;
+  color: $text;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums;
+}
+.ajv-kpi__hint {
+  margin-top: .5rem;
+  overflow: hidden;
+  color: $muted;
+  font-size: .75rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Las tabs de administración del sitio van sobre el fondo (después de los KPIs)
+.ajv-home + .secondary-navigation {
+  margin-top: 0 !important;
+  &::before { display: none; }
+}
+
+@media (max-width: 1023px) {
+  .ajv-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .ajv-home__sub { margin-left: 0; }
+  .ajv-home__actions { width: 100%; .btn { flex: 1; } }
+  .ajv-kpis { margin: 0; }
+  .ajv-kpi { flex-direction: column; gap: .7rem; padding: 1rem; }
+  .ajv-kpi__icon { width: 2rem; height: 2rem; border-radius: $r-panel; }
+  .ajv-kpi__value { font-size: 1.6rem; }
+  .ajv-kpi__hint { white-space: normal; }
+}
