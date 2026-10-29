@@ -1235,3 +1235,38 @@ body.pagelayout-login {
   color: $muted !important;
   &:hover { background: $subtle !important; color: $text !important; }
 }
+
+// ---------- Login: pulido ----------
+body#page-login-index {
+  // Eyebrow debajo del logo
+  .login-form::before {
+    content: "Portal de Capacitación";
+    display: block;
+    margin: -.75rem 0 1.5rem;
+    text-align: center;
+    color: $eyebrow-dk;
+    font-size: .625rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+  // Invitado a todo el ancho
+  #guestlogin .btn,
+  .login-container form[action*="login/index.php"] .btn-secondary {
+    width: 100%;
+    padding: .7rem 1rem !important;
+  }
+  // Separadores suaves
+  .login-container .divider,
+  .login-container .vr,
+  .login-container [class*="border-left"],
+  .login-container [class*="border-start"] {
+    border-color: rgba(255, 255, 255, .12) !important;
+    background-color: rgba(255, 255, 255, .12) !important;
+    opacity: 1;
+  }
+  .login-container .dropdown-toggle,
+  .login-container .langmenu a {
+    color: $eyebrow-dk !important;
+  }
+}
