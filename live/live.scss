@@ -7,6 +7,15 @@
 @import "tokens";
 @import "astra-waves";
 
+// Inter 800 (Astra usa 300–800; el tema trae 400–700)
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("fonts/Inter-800.woff2") format("woff2");
+}
+
 :root { --ajv-live-css: "astra-v2"; }
 
 // Íconos SVG reutilizables (data URI, trazo azul / claro)
