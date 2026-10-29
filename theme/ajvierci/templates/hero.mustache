@@ -1,0 +1,52 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+}}
+{{!
+    @template theme_ajvierci/hero
+
+    Hero shown at the top of the site home.
+
+    Example context (json):
+    {
+        "eyebrow": "Grupo AJ Vierci",
+        "title": "Portal de Capacitación",
+        "subtitle": "Cursos, materiales y evaluaciones para todo el equipo, en un solo lugar.",
+        "greeting": "Hola, Elías",
+        "loggedin": true,
+        "primaryurl": "#",
+        "primarytext": "Ir a mis cursos",
+        "catalogurl": "#",
+        "catalogtext": "Ver catálogo",
+        "showstats": true,
+        "stats": [
+            {"value": 3, "label": "Mis cursos"},
+            {"value": 12, "label": "Cursos disponibles"}
+        ]
+    }
+}}
+<section class="ajv-hero" aria-labelledby="ajv-hero-title">
+    <div class="ajv-hero__body">
+        <span class="ajv-hero__eyebrow">{{#greeting}}{{{greeting}}} · {{/greeting}}{{{eyebrow}}}</span>
+        <h1 class="ajv-hero__title" id="ajv-hero-title">{{{title}}}</h1>
+        <p class="ajv-hero__text">{{{subtitle}}}</p>
+        <div class="ajv-hero__actions">
+            <a class="btn btn-primary ajv-hero__cta" href="{{primaryurl}}">{{primarytext}}</a>
+            <a class="btn ajv-hero__ghost" href="{{catalogurl}}">{{catalogtext}}</a>
+        </div>
+    </div>
+    {{#showstats}}
+    <div class="ajv-hero__stats">
+        {{#stats}}
+        <div class="ajv-hero__stat">
+            <span class="ajv-hero__stat-value">{{value}}</span>
+            <span class="ajv-hero__stat-label">{{label}}</span>
+        </div>
+        {{/stats}}
+    </div>
+    {{/showstats}}
+</section>

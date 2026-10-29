@@ -1,0 +1,12 @@
+// ============================================================
+// CSS EN VIVO — Portal de Capacitación AJ Vierci
+// Se carga en el Moodle DESPUÉS de los estilos del tema.
+// Lo que se publique acá aparece en el sitio en ~10 min, sin reinstalar.
+// Compilar: scripts/build.sh  →  docs/live.css
+// ============================================================
+@import "tokens";
+
+// Marca de verificación: si esta variable existe en el sitio, el CSS en vivo está cargando.
+:root { --ajv-live-css: "ok"; }
+
+// ---- Cambios visuales nuevos van debajo de esta línea ----

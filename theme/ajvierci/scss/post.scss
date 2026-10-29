@@ -1,0 +1,589 @@
+// ============================================================
+// AJ Vierci — rules (loaded AFTER Boost).
+// ============================================================
+
+// ---------- Inter (self-hosted, theme/ajvierci/fonts) ----------
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("[[font:theme|Inter-400.woff2]]") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("[[font:theme|Inter-500.woff2]]") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("[[font:theme|Inter-600.woff2]]") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("[[font:theme|Inter-700.woff2]]") format("woff2");
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ---------- Navbar ----------
+.navbar.fixed-top {
+  background: $ajv-surface;
+  border-bottom: 1px solid $ajv-border;
+  box-shadow: none;
+  .navbar-brand { font-weight: 600; color: $ajv-text; }
+  .primary-navigation .nav-link {
+    color: $ajv-muted;
+    font-weight: 500;
+    &:hover { color: $ajv-text; }
+    &.active { color: $ajv-text; border-bottom-color: $ajv-teal; }
+  }
+}
+
+// ---------- Layout: canvas parejo, el contenido vive en cards ----------
+#page.drawers .main-inner,
+#region-main,
+#region-main-box,
+#page-header,
+.secondary-navigation,
+.sitetopic,
+.sitetopic .section {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.secondary-navigation .navigation .nav-tabs {
+  border-bottom: 1px solid $ajv-border;
+  .nav-link {
+    color: $ajv-muted;
+    font-weight: 500;
+    &:hover { color: $ajv-text; border-color: transparent; }
+    &.active {
+      color: $ajv-text;
+      background: transparent;
+      border-color: transparent;
+      border-bottom: 2px solid $ajv-teal;
+    }
+  }
+}
+
+h1, h2, h3, .h1, .h2, .h3 { letter-spacing: -.01em; }
+
+// ---------- Cards, bloques, secciones ----------
+.card,
+.block {
+  background: $ajv-surface;
+  border: 1px solid $ajv-border;
+  border-radius: $border-radius-lg;
+  box-shadow: $ajv-shadow-sm;
+}
+.course-content .section {
+  background: $ajv-surface;
+  border: 1px solid $ajv-border;
+  border-radius: $border-radius-lg;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+// ---------- Botones ----------
+.btn { font-weight: 500; }
+.btn-primary {
+  &:hover, &:focus { background: darken($ajv-teal, 5%); border-color: darken($ajv-teal, 5%); }
+}
+.btn-secondary {
+  color: $ajv-text;
+  background: $ajv-surface;
+  border-color: $ajv-border-strong;
+  &:hover, &:focus { background: $ajv-subtle; border-color: $ajv-border-strong; color: $ajv-text; }
+}
+.btn:focus,
+.form-control:focus,
+.custom-select:focus {
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, .18);
+}
+
+// ---------- Alertas ----------
+.alert-info,
+.alert-success {
+  background: $ajv-teal-bg;
+  border-color: $ajv-teal-border;
+  color: $ajv-teal-text;
+}
+
+// ============================================================
+// HOME — hero (templates/hero.mustache)
+// ============================================================
+.ajv-hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+  margin: 1.5rem 0 1.25rem;
+  padding: 3rem 2.5rem;
+  border-radius: 1rem;
+  color: #fff;
+  background: linear-gradient(160deg, $ajv-navy-1 0%, $ajv-navy-2 45%, $ajv-navy-3 100%);
+  box-shadow: $ajv-shadow-lg;
+
+  // Glow teal sutil
+  &::after {
+    content: "";
+    position: absolute;
+    right: -120px;
+    top: -120px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15, 118, 110, .35), transparent 70%);
+    pointer-events: none;
+  }
+  > * { position: relative; z-index: 1; }
+
+  &__eyebrow {
+    display: inline-block;
+    margin-bottom: .75rem;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: $ajv-teal-border;
+  }
+  &__title {
+    margin: 0 0 .5rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+  }
+  &__text {
+    max-width: 38rem;
+    margin: 0 0 1.75rem;
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, .72);
+  }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+  &__cta {
+    padding: .7rem 1.25rem;
+    font-weight: 600;
+  }
+  &__ghost {
+    padding: .7rem 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .18);
+    &:hover, &:focus { color: #fff; background: rgba(255, 255, 255, .12); }
+  }
+
+  &__title { hyphens: manual; text-wrap: balance; }
+
+  // Stats apiladas a la derecha: le dejan más ancho al título.
+  &__stats {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  &__stat {
+    min-width: 11rem;
+    padding: 1rem 1.25rem;
+    border-radius: .75rem;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .12);
+  }
+  &__stat-value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+  }
+  &__stat-label {
+    display: block;
+    margin-top: .375rem;
+    font-size: .8125rem;
+    color: rgba(255, 255, 255, .65);
+  }
+
+  @media (max-width: 991.98px) {
+    grid-template-columns: 1fr;
+    align-items: start;
+    &__stats { flex-direction: row; }
+  }
+  @media (max-width: 575.98px) {
+    padding: 2rem 1.25rem;
+    &__title { font-size: 1.875rem; }
+    &__stats { width: 100%; }
+    &__stat { flex: 1; min-width: 0; }
+  }
+}
+
+// ============================================================
+// HOME — grid de cursos
+// ============================================================
+#frontpage-available-course-list h2,
+#frontpage-course-list h2,
+#frontpage-category-names h2 {
+  margin: 2rem 0 1rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
+.courses.frontpage-course-list-all,
+.courses.frontpage-course-list-enrolled,
+.course_category_tree .courses,
+#frontpage-available-course-list .courses {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+
+  > .paging,
+  > .paging-morelink,
+  > div:not(.coursebox) {
+    grid-column: 1 / -1;
+  }
+}
+
+.courses .coursebox {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  background: $ajv-surface;
+  border: 1px solid $ajv-border;
+  border-radius: $border-radius-lg;
+  box-shadow: $ajv-shadow-sm;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+
+  &:hover {
+    border-color: $ajv-teal-border;
+    box-shadow: $ajv-shadow-md;
+    transform: translateY(-2px);
+  }
+
+  &.odd, &.even { background: $ajv-surface; }
+
+  // "display: contents" aplana los wrappers de .content para poder reordenar.
+  // Imagen primero, título después, el resto en su orden natural (order: 0).
+  // Funciona con o sin el wrapper .d-flex > .flex-grow-1 según la versión.
+  .content,
+  .content > .d-flex {
+    display: contents;
+  }
+  .courseimage { order: -2; }
+  .info { order: -1; }
+  .content .flex-grow-1 {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .coursename {
+    margin: 0 0 .5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.35;
+    a {
+      color: $ajv-text;
+      &:hover { color: $ajv-teal; text-decoration: none; }
+    }
+  }
+
+  .enrolmenticons { color: $ajv-muted; }
+
+  // Imagen del curso: arriba, a ancho completo
+  .courseimage {
+    order: -2;
+    float: none;
+    width: auto;
+    margin: -1.25rem -1.5rem 1rem;
+    img {
+      display: block;
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: $border-radius-lg $border-radius-lg 0 0;
+    }
+  }
+
+  .summary {
+    float: none;
+    width: auto;
+    margin: 0;
+    color: $ajv-muted;
+    font-size: .9375rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    p:last-child { margin-bottom: 0; }
+  }
+
+  .teachers {
+    margin: auto 0 0;
+    padding: 1rem 0 0;
+    list-style: none;
+    font-size: .875rem;
+    color: $ajv-muted;
+    border-top: 1px solid $ajv-border;
+    a { font-weight: 500; }
+  }
+  .summary + .teachers { margin-top: auto; }
+  .flex-grow-1 > .summary { margin-bottom: 1rem; }
+
+  .coursecat {
+    font-size: .8125rem;
+    color: $ajv-muted;
+  }
+
+  // Curso oculto (solo lo ven admins)
+  &.dimmed .coursename a,
+  .coursename a.dimmed {
+    color: $ajv-muted;
+  }
+}
+
+// ============================================================
+// LOGIN — navy antracita
+// ============================================================
+body#page-login-index {
+  background: linear-gradient(160deg, $ajv-navy-1 0%, $ajv-navy-2 45%, $ajv-navy-3 100%);
+  background-attachment: fixed;
+
+  #page,
+  #page-wrapper,
+  #region-main,
+  .login-wrapper {
+    background: transparent;
+  }
+
+  .login-container {
+    background: $ajv-surface;
+    border: 1px solid $ajv-border;
+    border-radius: 1rem;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, .45);
+  }
+  .login-heading,
+  .login-logo + h2 {
+    color: $ajv-text;
+    font-weight: 600;
+  }
+  a { color: $ajv-teal; }
+  .btn-primary { width: 100%; padding: .7rem 1rem; }
+}
+
+// ---------- Footer ----------
+#page-footer {
+  background: transparent;
+  color: $ajv-muted;
+}
+
+// ---------- Home: sección principal sin card ----------
+// .course-content .section le pone card; en el home la sacamos.
+#page-site-index .course-content .sitetopic .section,
+#page-site-index .sitetopic .course-content .section,
+#page-site-index .sitetopic .section {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+// Si la sección está vacía (y no estás editando), no se muestra.
+body#page-site-index:not(.editing) .sitetopic:not(:has(.activity)) {
+  display: none;
+}
+
+// ---------- Cards: padding firme + portada automática ----------
+#page-site-index .courses .coursebox,
+.course_category_tree .courses .coursebox {
+  padding: 1.25rem 1.5rem 1.5rem;
+  overflow: hidden;
+}
+
+// Cursos sin imagen: banda de portada con gradiente y un ícono de birrete.
+.courses .coursebox:not(:has(.courseimage))::before {
+  content: "";
+  order: -3;
+  display: block;
+  height: 110px;
+  margin: -1.25rem -1.5rem 1.25rem;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c7e2dd' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10 12 5 2 10l10 5 10-5Z'/%3E%3Cpath d='M6 12v5c3 2 9 2 12 0v-5'/%3E%3C/svg%3E") no-repeat 1.5rem center / 40px 40px,
+    radial-gradient(circle at 85% 20%, rgba(15, 118, 110, .55), transparent 55%),
+    linear-gradient(135deg, $ajv-navy-1 0%, $ajv-navy-3 100%);
+}
+// Variación de color por posición, para que no sean todas iguales.
+.courses .coursebox:nth-child(3n+2):not(:has(.courseimage))::before {
+  background-position: 1.5rem center, 0 0, 0 0;
+  filter: hue-rotate(-18deg);
+}
+.courses .coursebox:nth-child(3n+3):not(:has(.courseimage))::before {
+  filter: hue-rotate(22deg) saturate(1.1);
+}
+
+.courses .coursebox .coursename a { margin-right: .375rem; }
+.courses .coursebox .enrolmenticons {
+  display: inline-flex;
+  gap: .25rem;
+  vertical-align: middle;
+  .icon { margin: 0; font-size: .875rem; }
+}
+
+// ============================================================
+// TOPBAR navy (v1.1)
+// ============================================================
+$ajv-teal-bright: #14b8a6; // indicador sobre fondo oscuro (el teal base no contrasta)
+
+.navbar.fixed-top {
+  background: $ajv-navy-3;
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+
+  // Texto e íconos claros (solo en la barra, no en los menús desplegables)
+  .navbar-brand,
+  .navbar-brand:hover,
+  .navbar-brand:focus { color: #fff; }
+
+  .nav-link,
+  .dropdown-toggle,
+  .btn-icon,
+  .icon,
+  .editmode-switch-form label,
+  .usermenu .login {
+    color: rgba(255, 255, 255, .72);
+  }
+  .nav-link:hover,
+  .dropdown-toggle:hover,
+  .btn-icon:hover { color: #fff; }
+
+  .primary-navigation .navigation .nav-link {
+    color: rgba(255, 255, 255, .72);
+    font-weight: 500;
+    &:hover { color: #fff; }
+    &.active {
+      color: #fff;
+      border-bottom-color: $ajv-teal-bright;
+    }
+  }
+
+  .divider { border-color: rgba(255, 255, 255, .1); }
+
+  // Avatar con iniciales
+  .userinitials {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .14);
+  }
+
+  // Switch "Modo de edición"
+  .custom-switch .custom-control-label::before,
+  .form-switch .form-check-input {
+    background-color: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .2);
+  }
+  .custom-switch .custom-control-input:checked ~ .custom-control-label::before,
+  .form-switch .form-check-input:checked {
+    background-color: $ajv-teal-bright;
+    border-color: $ajv-teal-bright;
+  }
+
+  // Menús desplegables y popovers vuelven a colores claros normales
+  .dropdown-menu,
+  .popover-region-container {
+    color: $ajv-text;
+    .icon { color: $ajv-muted; }
+    .dropdown-item { color: $ajv-text; }
+  }
+
+  // Marca: cuadrado teal "AJ" cuando no hay logo cargado
+  .navbar-brand:not(:has(img))::before {
+    content: "AJ";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-right: .625rem;
+    border-radius: .5rem;
+    font-size: .8125rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: #fff;
+    background: linear-gradient(135deg, $ajv-teal-bright, $ajv-teal);
+    box-shadow: 0 2px 8px rgba(20, 184, 166, .35);
+  }
+  .navbar-brand {
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+  .navbar-brand .logo { max-height: 2rem; }
+}
+
+// ============================================================
+// MIS CURSOS / ÁREA PERSONAL — cards iguales al home
+// ============================================================
+.block_myoverview .dashboard-card,
+.block_recentlyaccessedcourses .dashboard-card,
+.block_starredcourses .dashboard-card {
+  overflow: hidden;
+  border: 1px solid $ajv-border;
+  border-radius: $border-radius-lg;
+  box-shadow: $ajv-shadow-sm;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+
+  &:hover {
+    border-color: $ajv-teal-border;
+    box-shadow: $ajv-shadow-md;
+    transform: translateY(-2px);
+  }
+  .card-img,
+  .card-img-top { height: 120px; }
+
+  // Reemplaza los patrones automáticos de Moodle por nuestra portada
+  .card-img[style*="data:image/svg"],
+  .card-img-top[style*="data:image/svg"] {
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c7e2dd' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10 12 5 2 10l10 5 10-5Z'/%3E%3Cpath d='M6 12v5c3 2 9 2 12 0v-5'/%3E%3C/svg%3E") no-repeat 1.25rem center / 34px 34px,
+      radial-gradient(circle at 85% 20%, rgba(15, 118, 110, .55), transparent 55%),
+      linear-gradient(135deg, $ajv-navy-1 0%, $ajv-navy-3 100%) !important;
+  }
+
+  .coursename,
+  .multiline { font-weight: 600; color: $ajv-text; }
+  .categoryname,
+  .text-muted { color: $ajv-muted; }
+  .progress { height: 6px; border-radius: 999px; background: $ajv-subtle; }
+  .progress-bar { background: $ajv-teal; }
+}
+
+// Títulos de bloques
+.block .card-title,
+.block h5.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $ajv-text;
+}
+
+// Boost pone .bg-white (con !important) en la topbar: hay que forzar el navy.
+nav.navbar.fixed-top,
+nav.navbar.fixed-top.bg-white {
+  background-color: $ajv-navy-3 !important;
+}
