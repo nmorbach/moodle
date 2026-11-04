@@ -1823,3 +1823,205 @@ body#page-login-index .loginform > h1.login-heading:not(.sr-only) { display: non
   .ajv-kpi__value { font-size: 1.6rem; }
   .ajv-kpi__hint { white-space: normal; }
 }
+
+// ============================================================
+// 24. DIRECCIÓN EDITORIAL (B)
+// Papel cálido, serif en títulos, tinta para acciones, azul AJ de acento.
+// Va al final: pisa las secciones anteriores.
+// ============================================================
+@font-face { font-family: "Source Serif 4"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/SourceSerif4-400.woff2") format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/SourceSerif4-400i.woff2") format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/SourceSerif4-500.woff2") format("woff2"); }
+@font-face { font-family: "Source Serif 4"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/SourceSerif4-600.woff2") format("woff2"); }
+
+// ---------- Títulos en serif ----------
+h1, h2, .h1, .h2,
+#page-header h1, #page-header .h2,
+.ajv-hero__title, .ajv-home__title,
+.course-content .sectionname,
+.course-content .course-section-header h3,
+.courses .coursebox .coursename,
+.dashboard-card .coursename, .dashboard-card .multiline,
+.block .card-title, .block h5.card-title,
+#frontpage-available-course-list h2, #frontpage-course-list h2,
+#region-main div[role="main"] > h2, #region-main div[role="main"] > h3,
+.modal-title, .maincalendar .calendar-controls .current {
+  font-family: $serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -.012em !important;
+}
+#page-header h1, #page-header .page-header-headings h1 { font-size: 2.125rem !important; line-height: 1.15 !important; }
+
+// ---------- Topbar clara ----------
+nav.navbar.fixed-top,
+nav.navbar.fixed-top.bg-white {
+  background: $canvas !important;
+  border-bottom: 1px solid $border !important;
+  box-shadow: none !important;
+}
+.navbar.fixed-top {
+  .navbar-brand:not(:has(img))::before {
+    background-image: url("brand/logo-ink.png") !important;
+  }
+  .primary-navigation .navigation .nav-link {
+    color: $text-3 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    &:hover { color: $ink !important; background: transparent !important; }
+    &.active,
+    &[aria-current="true"] {
+      color: $ink !important;
+      background: transparent !important;
+      box-shadow: inset 0 -2px 0 $ink;
+    }
+  }
+  .moremenu .dropdown-toggle { color: $text-3 !important; }
+  .icon,
+  .popover-region-toggle,
+  .btn-icon,
+  .usermenu .dropdown-toggle,
+  .usermenu .login a,
+  .editmode-switch-form label { color: $text-3 !important; }
+  .popover-region-toggle:hover .icon,
+  .btn-icon:hover { color: $ink !important; }
+  .divider { border-color: $border !important; }
+  .userinitials,
+  .avatar.current .userinitials {
+    color: $ink !important;
+    background: $subtle !important;
+    border: 1px solid $border-strong !important;
+  }
+  .custom-switch .custom-control-label::before { background-color: $subtle; border-color: $border-strong; }
+  .custom-switch .custom-control-label::after { background-color: $muted; }
+  .custom-switch .custom-control-input:checked ~ .custom-control-label::before { background-color: $ink; border-color: $ink; }
+  .count-container { background: $sienna; border-color: $canvas; }
+}
+
+// ---------- Botones: tinta ----------
+.btn-primary,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active {
+  background: $ink !important;
+  border-color: $ink !important;
+}
+.btn-primary:hover,
+.btn-primary:focus { background: $ink-hover !important; border-color: $ink-hover !important; }
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light,
+.btn-default { background: transparent !important; }
+
+// ---------- Tabs: subrayado en tinta ----------
+.secondary-navigation .navigation .nav-tabs .nav-link,
+.nav-tabs .nav-link {
+  &.active,
+  &[aria-current="true"] { color: $ink !important; border-bottom-color: $ink !important; }
+}
+
+// ---------- Inicio ----------
+.ajv-hero__eyebrow {
+  color: $muted !important;
+  font-size: .875rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+.ajv-hero__title {
+  font-size: clamp(2.1rem, 3.2vw, 2.75rem) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -.02em !important;
+}
+.ajv-hero__text { font-size: 1rem !important; }
+.ajv-hero__stat-value,
+.ajv-kpi__value {
+  font-family: $serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -.01em !important;
+}
+.ajv-home__icon, .ajv-kpi__icon { background: $subtle !important; color: $ink !important; }
+
+#frontpage-available-course-list h2,
+#frontpage-course-list h2 { font-size: 1.5rem !important; }
+
+// ---------- Cursos como índice de revista ----------
+.courses.frontpage-course-list-all,
+.courses.frontpage-course-list-enrolled,
+.course_category_tree .courses,
+#frontpage-available-course-list .courses {
+  gap: 2.25rem 2.5rem !important;
+}
+.courses .coursebox,
+#page-site-index .courses .coursebox,
+.course_category_tree .courses .coursebox,
+.courses .coursebox:has(.courseimage) {
+  padding: 1.1rem 0 0 !important;
+  border: 0 !important;
+  border-top: 2px solid $brand !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  &:hover { box-shadow: none !important; border-color: $brand !important; }
+  &:hover .coursename a { color: $brand !important; }
+}
+.courses .coursebox:nth-child(3n+2) { border-top-color: $sienna !important; &:hover { border-color: $sienna !important; } }
+.courses .coursebox:nth-child(3n+3) { border-top-color: $ink !important; &:hover { border-color: $ink !important; } }
+.courses .coursebox::before { display: none !important; }
+.courses .coursebox .coursename {
+  font-size: 1.3rem !important;
+  line-height: 1.25 !important;
+  a { color: $ink !important; text-decoration: none; }
+}
+.courses .coursebox .summary { color: $text-3 !important; font-size: .9375rem !important; }
+.courses .coursebox .teachers { border-top-color: $border !important; }
+.courses .coursebox .courseimage {
+  position: static !important;
+  height: 160px !important;
+  margin: 0 0 1rem !important;
+  border-radius: 4px !important;
+  img { border-radius: 4px !important; }
+}
+
+// Mis cursos: mismo lenguaje
+.dashboard-card,
+.block_myoverview .dashboard-card,
+.block_recentlyaccessedcourses .dashboard-card,
+.block_starredcourses .dashboard-card {
+  border: 0 !important;
+  border-top: 2px solid $brand !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  &:hover { box-shadow: none !important; }
+  .card-img,
+  .card-img-top { height: 150px !important; border-radius: 4px !important; margin-top: 1rem; }
+  .card-img[style*="data:image/svg"],
+  .card-img-top[style*="data:image/svg"] { display: none !important; }
+  .card-body { padding: 1rem 0 0 !important; }
+  .coursename, .multiline { font-size: 1.15rem !important; color: $ink !important; }
+  .progress-bar { background: $ink !important; }
+}
+.dashboard-card-deck .dashboard-card:nth-child(3n+2) { border-top-color: $sienna !important; }
+.dashboard-card-deck .dashboard-card:nth-child(3n+3) { border-top-color: $ink !important; }
+
+// ---------- Curso ----------
+.course-content .section,
+.course-content li.section.course-section {
+  border-radius: 4px !important;
+  background: $surface !important;
+}
+.course-content .sectionname,
+.course-content .course-section-header h3 { font-size: 1.375rem !important; }
+.activityiconcontainer,
+.activity-item .activityiconcontainer { border-radius: 4px !important; }
+body.path-course-view #page-header .page-header-headings h1::before {
+  background-color: $subtle !important;
+  border-radius: 4px !important;
+}
+
+// ---------- Detalles ----------
+.block.card, .block { border-radius: 4px !important; background: $surface !important; }
+.maincalendar .calendartable.calendarmonth td.today .day-number-circle { background: $ink !important; }
+#page-footer .btn-footer-popover,
+.btn-footer-popover { background-color: $ink !important; &:hover, &:focus { background-color: $brand !important; } }
+::selection { background: #f1dcc4; color: $ink; }
