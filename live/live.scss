@@ -2025,3 +2025,208 @@ body.path-course-view #page-header .page-header-headings h1::before {
 #page-footer .btn-footer-popover,
 .btn-footer-popover { background-color: $ink !important; &:hover, &:focus { background-color: $brand !important; } }
 ::selection { background: #f1dcc4; color: $ink; }
+
+// ============================================================
+// 25. CONTENIDO DE PÁGINAS Y LIBROS
+// (mod/page: .generalbox · mod/book: .book_content — verificado en 4.2)
+// Solo presentación: el texto del curso no cambia.
+// ============================================================
+$ico-route: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e3096' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='19' r='3'/%3E%3Cpath d='M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15'/%3E%3Ccircle cx='18' cy='5' r='3'/%3E%3C/svg%3E";
+
+#page-mod-page-view #region-main .generalbox,
+.path-mod-book .book_content {
+  max-width: 54rem;
+  color: $text-2;
+  font-size: 1rem;
+  line-height: 1.7;
+
+  p { margin: 0 0 1rem; }
+
+  // Subtítulos marcados en el HTML del curso (h4.ajv-sub)
+  h4.ajv-sub {
+    margin: 2rem 0 .75rem;
+    color: $ink;
+    font-family: $serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .no-overflow > h4.ajv-sub:first-child { margin-top: 0; }
+
+  // --- Tablas ---
+  table:not(.generaltable) {
+    width: 100%;
+    margin: 1.25rem 0 1.75rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid $border;
+    border-radius: $r-panel;
+    background: $surface;
+    font-size: .9375rem;
+    line-height: 1.55;
+
+    thead th {
+      padding: .7rem 1rem;
+      border: 0;
+      border-bottom: 1px solid $border;
+      background: $subtle;
+      color: $muted;
+      font-family: inherit;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-align: left;
+      strong { font-weight: 600; }
+    }
+    td {
+      padding: .85rem 1rem;
+      border: 0;
+      vertical-align: top;
+      color: $text-2;
+    }
+    tbody tr + tr td { border-top: 1px solid $border; }
+    td:first-child { color: $ink; font-weight: 600; }
+    td p, th p { margin: 0; }
+  }
+
+  // --- Pasos numerados ---
+  ol {
+    list-style: none;
+    counter-reset: ajv-step;
+    margin: 1.25rem 0 1.5rem;
+    padding: 0;
+    > li {
+      position: relative;
+      counter-increment: ajv-step;
+      margin: 0;
+      padding: 0 0 1rem 3rem;
+      min-height: 2.5rem;
+      &::before {
+        content: counter(ajv-step);
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.9rem;
+        height: 1.9rem;
+        border-radius: 50%;
+        background: $surface;
+        border: 1.5px solid $brand;
+        color: $brand;
+        font-family: $serif;
+        font-size: .95rem;
+        font-weight: 600;
+        line-height: 1;
+      }
+      // Línea que une los pasos
+      &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: calc(.95rem - .75px);
+        top: 2.05rem;
+        bottom: .15rem;
+        width: 1.5px;
+        background: $border-strong;
+      }
+      > p { margin: 0; padding-top: .2rem; }
+    }
+  }
+
+  // --- Viñetas ---
+  ul {
+    list-style: none;
+    margin: .75rem 0 1.25rem;
+    padding: 0;
+    > li {
+      position: relative;
+      margin: 0 0 .55rem;
+      padding-left: 1.4rem;
+      &::before {
+        content: "";
+        position: absolute;
+        left: .2rem;
+        top: .7em;
+        width: .45rem;
+        height: .45rem;
+        border-radius: 2px;
+        background: $sienna;
+      }
+      > p { margin: 0; }
+    }
+  }
+
+  // --- Recuadros (Consejo / Nota / Importante / Pendiente) ---
+  .alert {
+    margin: 1.25rem 0;
+    padding: .9rem 1.1rem .9rem 1.1rem;
+    border: 0;
+    border-left: 4px solid;
+    border-radius: 0 $r-control $r-control 0;
+    font-size: .9375rem;
+    line-height: 1.6;
+    > strong:first-child {
+      display: block;
+      margin-bottom: .2rem;
+      font-size: .75rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+  }
+  .alert-info      { background: $brand-soft; border-left-color: $brand;  color: $brand-ink; }
+  .alert-secondary { background: $subtle;     border-left-color: $muted;  color: $text-2; }
+  .alert-danger    { background: $err-bg;     border-left-color: #d92d20; color: $err-ink; }
+  .alert-warning   { background: $warn-bg;    border-left-color: #f79009; color: $warn-ink; }
+  .alert-light,
+  .ajv-placeholder {
+    background: transparent;
+    border: 1.5px dashed $border-strong;
+    border-radius: $r-control;
+    color: $muted;
+  }
+}
+
+// «Ruta en D365» → chip de ruta (p.ajv-route en el HTML del curso)
+p.ajv-route {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  margin: 0 0 1.25rem !important;
+  padding: .55rem .9rem .55rem .75rem;
+  border: 1px solid $border;
+  border-radius: $r-control;
+  background: $surface;
+  font-size: .875rem;
+  line-height: 1.4;
+  color: $text-2;
+  &::before {
+    content: "";
+    flex: none;
+    width: 1.1rem;
+    height: 1.1rem;
+    background: url($ico-route) no-repeat center / contain;
+  }
+  strong { font-weight: 600; color: $ink; }
+}
+
+// Título de capítulo del libro
+.path-mod-book .book_content > h3,
+.path-mod-book .book_content h3:first-child {
+  margin: 0 0 1rem;
+  font-family: $serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: $ink;
+}
+
+// Cabecera de actividad («View» / finalización): compacta, sin caja
+.activity-header {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  margin-bottom: 1.25rem;
+  hr { display: none; }
+}
