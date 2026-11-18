@@ -291,8 +291,7 @@ body.pagelayout-incourse.path-mod-book #page-header .page-header-headings::befor
 body.pagelayout-incourse .activity-header {
   display: flex;
   justify-content: flex-start;
-  max-width: 46rem;
-  margin: 2rem auto 1rem !important;
+  margin: 2rem 0 1rem !important;
 }
 body.pagelayout-incourse .activity-header .badge {
   display: inline-flex !important;
@@ -321,8 +320,8 @@ body.pagelayout-incourse .activity-header .alert-success {
 // El contenido como hoja: columna angosta, centrada, con aire
 #page-mod-page-view #region-main .generalbox,
 .path-mod-book #region-main .book_content {
-  max-width: 46rem !important;
-  margin: 0 auto 3rem !important;
+  max-width: none !important;
+  margin: 0 0 3rem !important;
   padding: 2.75rem 3rem !important;
   border: 1px solid #e7e1d6 !important;
   border-radius: 18px !important;
