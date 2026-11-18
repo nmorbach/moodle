@@ -124,8 +124,9 @@ body.path-course-view .course-content #section-0::before {
 }
 
 // Cabecera del módulo: «Módulo 01» arriba, título, chevron a la derecha
-body.path-course-view .course-section-header > .d-flex {
-  flex: 1 1 auto;
+body.path-course-view .course-section-header > .d-flex.position-relative {
+  flex: 1 1 auto !important;
+  width: 100%;
   align-items: center !important;
 }
 body.path-course-view .course-section-header .icons-collapse-expand {
@@ -137,6 +138,8 @@ body.path-course-view .course-section-header .icons-collapse-expand {
 body.path-course-view .course-content .course-section-header .sectionname {
   display: flex !important;
   flex-direction: column;
+  align-items: flex-start !important;
+  text-align: left;
   font-size: 1.3rem !important;
   line-height: 1.25 !important;
 }
@@ -214,6 +217,11 @@ body.path-course-view .course-content li.modtype_quiz .activityiconcontainer .ac
 
 // Estado de finalización: círculo (pendiente) / check verde (hecho)
 body.path-course-view .course-content .activity-info { align-self: center !important; }
+// Varios requisitos (p. ej. evaluación: ver + aprobar): círculos en fila
+body.path-course-view .course-content .automatic-completion-conditions {
+  display: flex !important;
+  gap: .35rem;
+}
 body.path-course-view .course-content .automatic-completion-conditions .badge {
   display: inline-grid !important;
   place-items: center;
