@@ -185,3 +185,18 @@ body#page-login-index .login-container .langmenu a { color: #57514a !important; 
   body#page-login-index .login-wrapper::after { display: none !important; }
   body#page-login-index .login-container { grid-column: 1 !important; grid-row: 1 !important; padding: 0 !important; }
 }
+
+body#page-login-index #page,
+body#page-login-index #page-content,
+body#page-login-index #region-main-box,
+body#page-login-index #region-main {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+}
+body#page-login-index .login-container h2.login-heading,
+body#page-login-index .loginform h2.login-heading {
+  color: #57514a !important;
+  font-size: .875rem !important;
+  font-weight: 500 !important;
+}
