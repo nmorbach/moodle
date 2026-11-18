@@ -357,3 +357,6 @@ h1, h2, h3, h4, .h1, .h2,
 
 // Saludo «Hola, … · Grupo Vierci» fuera (pedido de RRHH)
 .ajv-hero__eyebrow { display: none !important; }
+// Bajada «Cursos, materiales y evaluaciones…» fuera (pedido de RRHH)
+.ajv-hero__text { display: none !important; }
+.ajv-hero__title { margin-bottom: 1.75rem !important; }
