@@ -25,12 +25,20 @@
   align-items: center !important;
 }
 .ajv-hero::before {
-  background:
-    radial-gradient(38rem 22rem at 88% 10%, rgba(120, 140, 255, .45), transparent 62%),
-    radial-gradient(30rem 20rem at 8% 110%, rgba(59, 79, 192, .55), transparent 65%),
-    radial-gradient(18rem 12rem at 55% 40%, rgba(255, 255, 255, .06), transparent 70%),
-    linear-gradient(135deg, #101a5c 0%, #1e3096 55%, #2a3fb3 100%) !important;
-  animation: ajv-drift 18s ease-in-out infinite;
+  // Foto de fondo (docs/brand/hero-bg.*, 1920×1080) + velo para el contraste del texto
+  background-color: #10204f !important;
+  background-image:
+    linear-gradient(90deg, rgba(8, 10, 40, .35) 0%, rgba(8, 10, 40, 0) 60%),
+    url("brand/hero-bg.jpg") !important;
+  background-image:
+    linear-gradient(90deg, rgba(8, 10, 40, .35) 0%, rgba(8, 10, 40, 0) 60%),
+    image-set(url("brand/hero-bg.webp") type("image/webp"), url("brand/hero-bg.jpg") type("image/jpeg")) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  // El mixin full-bleed estira ±100vmax: acotado al ancho de la ventana para que "cover" encuadre bien la foto
+  left: calc(50% - 50vw) !important;
+  right: calc(50% - 50vw) !important;
 }
 // Anillos decorativos (detrás de los KPIs)
 .ajv-hero::after,
