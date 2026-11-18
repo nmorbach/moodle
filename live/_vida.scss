@@ -328,3 +328,21 @@
   .courses .coursebox::before,
   .courses .coursebox .courseimage img { transition: none !important; }
 }
+
+// ---------- Tipografía de títulos: Plus Jakarta Sans ----------
+h1, h2, h3, h4, .h1, .h2,
+#page-header h1, #page-header .h2,
+.ajv-hero__title, .ajv-home__title,
+.ajv-hero__stat-value, .ajv-kpi__value,
+.course-content .sectionname,
+.course-content .course-section-header h3,
+.courses .coursebox .coursename,
+.dashboard-card .coursename, .dashboard-card .multiline,
+.block .card-title, .block h5.card-title,
+#frontpage-available-course-list h2, #frontpage-course-list h2,
+.modal-title, .maincalendar .calendar-controls .current {
+  font-family: "Plus Jakarta Sans", "Inter", system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -.025em !important;
+}
+.ajv-hero__title { font-weight: 800 !important; letter-spacing: -.035em !important; }

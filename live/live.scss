@@ -5,6 +5,8 @@
 // Compilar: scripts/build.sh → docs/live.css
 // ============================================================
 @import "tokens";
+// Plus Jakarta Sans (títulos) — Google Fonts; va primero porque @import debe encabezar el CSS
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap");
 @import "astra-waves";
 
 // Inter 800 (Astra usa 300–800; el tema trae 400–700)

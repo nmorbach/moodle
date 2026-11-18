@@ -52,4 +52,5 @@ $ring: 0 0 0 3px rgba(59, 79, 192, .18);
 $ink:        #1d1b17; // botones primarios, subrayados activos
 $ink-hover:  #34302a;
 $sienna:     #b5651d; // segundo acento (reglas de categoría)
-$serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+// Títulos: Plus Jakarta Sans (antes Source Serif 4; el nombre $serif se mantiene por compatibilidad)
+$serif: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
