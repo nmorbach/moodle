@@ -1,321 +1,187 @@
 
-body.path-course-view #page-header {
-  padding: 3rem 1.25rem 2.5rem !important;
-  color: #fff !important;
+body#page-login-index {
+  background: #f7f4ee !important;
+  color: #1d1b17;
 }
-body.path-course-view #page-header::before {
-  left: calc(50% - 50vw) !important;
-  right: calc(50% - 50vw) !important;
-  background-color: #10204f !important;
-  background-image:
-    linear-gradient(90deg, rgba(8, 10, 40, .45) 0%, rgba(8, 10, 40, .05) 70%),
-    url("https://nmorbach.github.io/moodle/brand/hero-bg.jpg") !important;
-  background-size: cover !important;
-  background-position: center !important;
+body#page-login-index::after,
+body#page-login-index #page-wrapper::before,
+body#page-login-index .login-container::after {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
 }
-body.path-course-view #page-header::after { display: none !important; }
-body.path-course-view #page-header .page-header-headings {
-  display: flex !important;
-  flex-direction: column;
-  gap: .75rem;
+body#page-login-index::before {
+  content: "" !important;
+  position: fixed !important;
+  inset: 0 auto 0 0 !important;
+  z-index: 0 !important;
+  width: 42vw !important;
+  opacity: 1 !important;
+  background: #1e3096 !important;
+  background-image: none !important;
 }
-body.path-course-view #page-header .page-header-headings::before {
-  content: "Curso" !important;
-  display: inline-flex !important;
-  align-self: flex-start;
-  padding: .3rem .75rem;
-  border: 1px solid rgba(255, 255, 255, .22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .1);
-  color: #dfe4ff;
-  font-size: .75rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  backdrop-filter: blur(6px);
+body#page-login-index #page-wrapper::after {
+  top: 3rem !important;
+  left: 4rem !important;
+  width: 12rem !important;
+  height: 3.4rem !important;
+  transform: none !important;
+  background-position: left center !important;
 }
-body.path-course-view #page-header .page-header-headings h1 {
-  max-width: 24ch;
-  color: #fff !important;
-  font-size: clamp(2rem, 3.4vw, 2.9rem) !important;
-  line-height: 1.08 !important;
-  font-weight: 800 !important;
-  letter-spacing: -.035em !important;
-  text-wrap: balance;
-}
-body.path-course-view #page-header .page-header-headings h1::before { display: none !important; }
-body.path-course-view #page-header + .secondary-navigation { margin-top: 0 !important; }
 
-body.path-course-view .course-content ul.topics,
-body.path-course-view .course-content ul.weeks {
-  counter-reset: ajv-mod;
-  position: relative;
-  margin-top: 2rem !important;
+body#page-login-index .login-wrapper {
+  grid-template-columns: 42vw minmax(0, 1fr) !important;
+  grid-template-rows: 1fr auto !important;
+  column-gap: 0 !important;
+  align-content: stretch !important;
+  max-width: none !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
 }
-body.path-course-view .course-content ul.topics::before,
-body.path-course-view .course-content ul.weeks::before {
-  content: "";
-  position: absolute;
-  top: 1.5rem;
-  bottom: 1.5rem;
-  left: 1.375rem;
-  width: 2px;
-  background: linear-gradient(#c9cff2, #e7e1d6);
+body#page-login-index .login-wrapper::before {
+  content: "Portal de\A Capacitación" !important;
+  white-space: pre-line;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  align-self: end !important;
+  max-width: none !important;
+  margin: 0 4rem !important;
+  color: #fff !important;
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  font-size: clamp(2.4rem, 3.6vw, 3.5rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.035em !important;
 }
-body.path-course-view .course-content li.section.course-section {
-  position: relative;
-  margin: 0 0 1.25rem 3.75rem !important;
-  padding: 1.25rem 1.5rem 1rem !important;
-  border: 1px solid #e7e1d6 !important;
-  border-radius: 16px !important;
-  background: #fffdf9 !important;
-  box-shadow: 0 1px 2px rgba(29, 27, 23, .04), 0 8px 24px -18px rgba(29, 27, 23, .2) !important;
-  counter-increment: ajv-mod;
+body#page-login-index .login-wrapper::after {
+  content: "Grupo A.J. Vierci · Recursos Humanos" !important;
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  align-self: end !important;
+  max-width: none !important;
+  margin: 1.25rem 4rem 3.5rem !important;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, .28);
+  color: rgba(255, 255, 255, .78) !important;
+  font-size: .875rem !important;
+  line-height: 1.5 !important;
 }
-body.path-course-view .course-content li.section.course-section:not(#section-0)::before {
-  content: counter(ajv-mod, decimal-leading-zero);
-  position: absolute;
-  top: 1.1rem;
-  left: -3.75rem;
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1e3096, #3b4fc0);
-  color: #fff;
-  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
-  font-size: .9375rem;
-  font-weight: 800;
-  box-shadow: 0 0 0 5px #f7f4ee, 0 8px 18px -6px rgba(30, 48, 150, .55);
-}
-body.path-course-view .course-content #section-0 {
-  counter-increment: none;
+
+body#page-login-index .login-container {
+  grid-column: 2 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: center !important;
+  justify-self: center !important;
+  width: 100% !important;
+  max-width: 23rem !important;
+  margin: 0 !important;
+  padding: 3rem 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
   background: transparent !important;
-  border-style: dashed !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  color: #1d1b17 !important;
+}
+body#page-login-index .login-container::before {
+  content: "Ingresar" !important;
+  margin: 0 0 .4rem !important;
+  color: #1d1b17 !important;
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif !important;
+  font-size: 1.875rem !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -.03em !important;
+}
+body#page-login-index .login-form::before {
+  content: "Usá el usuario y la contraseña que te dio Recursos Humanos." !important;
+  margin: 0 0 2rem !important;
+  color: #57514a !important;
+  font-size: .9375rem !important;
+  line-height: 1.5 !important;
+}
+body#page-login-index .login-form label.sr-only,
+body#page-login-index .login-form .sr-only[for] {
+  color: #1d1b17 !important;
+  font-size: .8125rem !important;
+  font-weight: 600 !important;
+}
+body#page-login-index .login-container .form-control {
+  padding: .7rem .8rem !important;
+  border: 1px solid #cfc6b6 !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  color: #1d1b17 !important;
+  font-size: .9375rem !important;
   box-shadow: none !important;
 }
-body.path-course-view .course-content #section-0::before {
-  content: "";
-  position: absolute;
-  top: 1.35rem;
-  left: -3.15rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: #f7f4ee url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e3096' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v6M12 7.5v.01'/%3E%3C/svg%3E") center / 1.1rem no-repeat;
-  box-shadow: 0 0 0 5px #f7f4ee;
+body#page-login-index .login-container .form-control:focus {
+  border-color: #1e3096 !important;
+  box-shadow: 0 0 0 3px rgba(30, 48, 150, .15) !important;
 }
-
-body.path-course-view .course-section-header > .d-flex.position-relative {
-  flex: 1 1 auto !important;
-  width: 100%;
-  align-items: center !important;
-}
-body.path-course-view .course-section-header .icons-collapse-expand {
-  order: 2;
-  margin: 0 0 0 auto !important;
-  border-radius: 50% !important;
-  background: #f3efe7 !important;
-}
-body.path-course-view .course-content .course-section-header .sectionname {
-  display: flex !important;
-  flex-direction: column;
-  align-items: flex-start !important;
-  text-align: left;
-  font-size: 1.3rem !important;
-  line-height: 1.25 !important;
-}
-body.path-course-view .course-content li.section:not(#section-0) .course-section-header .sectionname::before {
-  content: "Módulo " counter(ajv-mod, decimal-leading-zero);
-  margin-bottom: .2rem;
-  color: #3b4fc0;
-  font-family: "Inter", sans-serif;
-  font-size: .75rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-body.path-course-view .course-content .summarytext {
-  max-width: 46rem;
+body#page-login-index #loginbtn,
+body#page-login-index .login-container .btn-primary {
+  margin-top: .5rem;
+  padding: .8rem 1rem !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: #1e3096 !important;
+  color: #fff !important;
   font-size: .9375rem !important;
-  line-height: 1.6;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  transition: background-color .15s ease !important;
 }
+body#page-login-index #loginbtn:hover,
+body#page-login-index .login-container .btn-primary:hover { background: #17257a !important; }
 
-body.path-course-view .course-content ul.section {
-  margin-top: .75rem !important;
-  display: flex;
-  flex-direction: column;
-  gap: .375rem;
-}
-body.path-course-view .course-content li.activity + li.activity .activity-item:not(.activityinline) {
-  border-top: 0 !important;
-}
-body.path-course-view .course-content .activity-item:not(.activityinline) {
-  padding: .7rem .9rem !important;
-  border: 1px solid transparent !important;
-  border-radius: 12px !important;
-  background: #f7f4ee !important;
-  transition: background-color .15s ease, border-color .15s ease, transform .15s ease !important;
-}
-body.path-course-view .course-content .activity-item:not(.activityinline):hover {
-  border-color: #c9cff2 !important;
-  background: #fff !important;
-  transform: translateX(3px);
-}
-body.path-course-view .course-content .activityname .instancename {
-  font-size: .9375rem !important;
-}
-body.path-course-view .course-content .activitytitle .media-body::after {
-  display: block;
-  margin-top: .1rem;
-  color: #6f685c;
-  font-size: .75rem;
-  font-weight: 600;
-}
-body.path-course-view li.modtype_page .activitytitle .media-body::after { content: "Lectura"; }
-body.path-course-view li.modtype_book .activitytitle .media-body::after { content: "Libro · varios capítulos"; }
-body.path-course-view li.modtype_quiz .activitytitle .media-body::after { content: "Evaluación"; color: #1e3096; }
-body.path-course-view li.modtype_forum .activitytitle .media-body::after { content: "Foro"; }
-body.path-course-view li.modtype_glossary .activitytitle .media-body::after { content: "Glosario"; }
-body.path-course-view li.modtype_feedback .activitytitle .media-body::after { content: "Encuesta"; }
-body.path-course-view li.modtype_resource .activitytitle .media-body::after { content: "Archivo"; }
-body.path-course-view li.modtype_url .activitytitle .media-body::after { content: "Enlace"; }
-body.path-course-view li.modtype_assign .activitytitle .media-body::after { content: "Tarea"; color: #1e3096; }
-body.path-course-view li.modtype_h5pactivity .activitytitle .media-body::after { content: "Interactivo"; }
-
-body.path-course-view .course-content li.modtype_quiz .activity-item:not(.activityinline) {
-  border-color: #c9cff2 !important;
-  background: linear-gradient(90deg, #eef0fb, #f7f4ee 70%) !important;
-}
-body.path-course-view .course-content li.modtype_quiz .activityiconcontainer {
-  background: linear-gradient(135deg, #1e3096, #3b4fc0) !important;
-}
-body.path-course-view .course-content li.modtype_quiz .activityiconcontainer .activityicon {
-  filter: brightness(0) invert(1) !important;
-}
-
-body.path-course-view .course-content .activity-info { align-self: center !important; }
-body.path-course-view .course-content .automatic-completion-conditions {
-  display: flex !important;
-  gap: .35rem;
-}
-body.path-course-view .course-content .automatic-completion-conditions .badge {
-  display: inline-grid !important;
-  place-items: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0 !important;
-  overflow: hidden;
-  border: 2px solid #d6cec0 !important;
-  border-radius: 50% !important;
-  background: transparent !important;
-  color: transparent !important;
-  font-size: 0 !important;
-}
-body.path-course-view .course-content .automatic-completion-conditions .badge > * { display: none !important; }
-body.path-course-view .course-content .automatic-completion-conditions .badge-success,
-body.path-course-view .course-content .automatic-completion-conditions .alert-success {
-  border-color: #067647 !important;
-  background: #067647 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center / .9rem no-repeat !important;
-}
-
-body.pagelayout-incourse.path-mod-page #page-header,
-body.pagelayout-incourse.path-mod-book #page-header {
-  padding: 2.25rem 1.25rem 1.5rem !important;
-}
-body.pagelayout-incourse.path-mod-page #page-header .page-header-image,
-body.pagelayout-incourse.path-mod-book #page-header .page-header-image { display: none !important; }
-body.pagelayout-incourse.path-mod-page #page-header .breadcrumb,
-body.pagelayout-incourse.path-mod-book #page-header .breadcrumb {
-  margin-bottom: .9rem !important;
-  font-size: .8125rem !important;
-}
-body.pagelayout-incourse.path-mod-page #page-header .breadcrumb-item:first-child a,
-body.pagelayout-incourse.path-mod-book #page-header .breadcrumb-item:first-child a {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .25rem .65rem;
-  border-radius: 999px;
-  background: #eef0fb;
+body#page-login-index .login-container,
+body#page-login-index .login-container p,
+body#page-login-index .login-container .text-muted,
+body#page-login-index .login-instructions,
+body#page-login-index .login-form-forgotpassword { color: #57514a !important; }
+body#page-login-index .login-container a {
   color: #1e3096 !important;
-  font-weight: 700;
+  font-weight: 600 !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
-body.pagelayout-incourse.path-mod-page #page-header .page-header-headings h1,
-body.pagelayout-incourse.path-mod-book #page-header .page-header-headings h1 {
-  max-width: 26ch;
-  font-size: clamp(1.9rem, 3vw, 2.6rem) !important;
-  line-height: 1.1 !important;
-  font-weight: 800 !important;
-  letter-spacing: -.03em !important;
-  text-wrap: balance;
+body#page-login-index .login-divider,
+body#page-login-index .login-container .divider,
+body#page-login-index .login-container .vr {
+  border-color: #e7e1d6 !important;
+  background-color: #e7e1d6 !important;
 }
-body.pagelayout-incourse.path-mod-page #page-header .page-header-headings::before,
-body.pagelayout-incourse.path-mod-book #page-header .page-header-headings::before {
-  display: block !important;
-  margin-bottom: .5rem;
-  color: #3b4fc0;
-  font-size: .75rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+body#page-login-index .login-container h2,
+body#page-login-index .login-container .login-heading {
+  color: #1d1b17 !important;
+  font-size: .9375rem !important;
+  font-weight: 600 !important;
 }
-body.pagelayout-incourse.path-mod-page #page-header .page-header-headings::before { content: "Lectura" !important; }
-body.pagelayout-incourse.path-mod-book #page-header .page-header-headings::before { content: "Libro" !important; }
+body#page-login-index .login-container .btn-secondary,
+body#page-login-index .login-identityproviders .btn {
+  border: 1px solid #cfc6b6 !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: #1d1b17 !important;
+  font-weight: 600 !important;
+}
+body#page-login-index .login-container .btn-secondary:hover { background: #efe9de !important; }
+body#page-login-index .login-container .dropdown-toggle,
+body#page-login-index .login-container .langmenu a { color: #57514a !important; text-decoration: none; }
 
-body.pagelayout-incourse .activity-header {
-  display: flex;
-  justify-content: flex-start;
-  max-width: 46rem;
-  margin: 2rem auto 1rem !important;
-}
-body.pagelayout-incourse .activity-header .badge {
-  display: inline-flex !important;
-  align-items: center;
-  gap: .4rem;
-  padding: .35rem .75rem .35rem .55rem !important;
-  border: 1px solid #e7e1d6 !important;
-  border-radius: 999px !important;
-  background: #fffdf9 !important;
-  color: #57514a !important;
-  font-size: .75rem !important;
-}
-body.pagelayout-incourse .activity-header .badge::before {
-  content: "";
-  width: .9rem;
-  height: .9rem;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2357514a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E") center / contain no-repeat;
-}
-body.pagelayout-incourse .activity-header .badge-success,
-body.pagelayout-incourse .activity-header .alert-success {
-  border-color: #abefc6 !important;
-  background: #dcfae6 !important;
-  color: #067647 !important;
-}
-
-#page-mod-page-view #region-main .generalbox,
-.path-mod-book #region-main .book_content {
-  max-width: 46rem !important;
-  margin: 0 auto 3rem !important;
-  padding: 2.75rem 3rem !important;
-  border: 1px solid #e7e1d6 !important;
-  border-radius: 18px !important;
-  background: #fffdf9 !important;
-  box-shadow: 0 1px 2px rgba(29, 27, 23, .04), 0 18px 40px -28px rgba(29, 27, 23, .25) !important;
-  font-size: 1.0625rem !important;
-  line-height: 1.75 !important;
-}
-#page-mod-page-view #region-main .generalbox img,
-.path-mod-book #region-main .book_content img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-}
-@media (max-width: 767.98px) {
-  body.path-course-view .course-content ul.topics::before { display: none; }
-  body.path-course-view .course-content li.section.course-section { margin-left: 0 !important; }
-  body.path-course-view .course-content li.section.course-section::before { position: static !important; margin-bottom: .75rem; }
-  #page-mod-page-view #region-main .generalbox,
-  .path-mod-book #region-main .book_content { padding: 1.5rem 1.25rem !important; }
+@media (max-width: 991.98px) {
+  body#page-login-index::before { width: 100vw !important; height: 9.5rem !important; bottom: auto !important; position: absolute !important; }
+  body#page-login-index #page-wrapper::after { top: 3rem !important; left: 50% !important; transform: translateX(-50%) !important; background-position: center !important; }
+  body#page-login-index .login-wrapper {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto !important;
+    padding: 11rem 1.5rem 3rem !important;
+  }
+  body#page-login-index .login-wrapper::before,
+  body#page-login-index .login-wrapper::after { display: none !important; }
+  body#page-login-index .login-container { grid-column: 1 !important; grid-row: 1 !important; padding: 0 !important; }
 }
